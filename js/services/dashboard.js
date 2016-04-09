@@ -1,5 +1,5 @@
-angular.module('issueSystem.dashboard', [])
-    .factory('dashboard', [
+angular.module('issueSystem.dashboard.myDashboard', [])
+    .factory('myDashboard', [
         '$http',
         '$q',
         'BASE_URL',
