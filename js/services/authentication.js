@@ -6,6 +6,8 @@ angular.module('issueSystem.users.authentication', [])
         '$q',
         'BASE_URL',
         function($http, $q, BASE_URL) {
+            console.log(BASE_URL);
+
             function registerUser(user) {
                 var deferred = $q.defer();
 

@@ -11,10 +11,14 @@ angular.module('issueSystem.home', [
     }])
     .controller('HomeController', [
         '$scope',
+        '$location',
         'authentication',
-        function ($scope, authentication) {
+        function ($scope, $location, authentication) {
             $scope.login = function (user) {
-                authentication.loginUser(user);
+                authentication.loginUser(user)
+                    .then(function (loggedInUser) {
+                        console.log(loggedInUser);
+                    });
             };
 
             $scope.register = function (user) {

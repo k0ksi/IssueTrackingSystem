@@ -2,7 +2,8 @@
 
 angular.module('issueSystem', [
     'ngRoute',
-    'issueSystem.home'
+    'issueSystem.home',
+    'issueSystem.users.identity'
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/'});
