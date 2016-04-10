@@ -6,6 +6,11 @@ angular.module('issueSystem', [
     'issueSystem.users.identity'
     ])
     .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/', {
+            templateUrl: 'templates/home.html',
+            controller: 'HomeController'
+        });
+
         $routeProvider.otherwise({redirectTo: '/'});
     }])
     .constant('BASE_URL', 'http://softuni-social-network.azurewebsites.net/api/');

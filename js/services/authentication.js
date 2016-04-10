@@ -38,6 +38,18 @@ angular.module('issueSystem.users.authentication', [])
 
             }
 
+            function isLoggedIn() {
+
+            }
+
+            function isNormalUser() {
+
+            }
+
+            function isAdmin() {
+
+            }
+
             return {
                 registerUser: registerUser,
                 loginUser: loginUser,
