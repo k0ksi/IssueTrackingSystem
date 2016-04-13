@@ -50,6 +50,10 @@ angular.module('issueSystem.users.authentication', [])
 
             }
 
+            function getAuthHeaders() {
+
+            }
+
             return {
                 registerUser: registerUser,
                 loginUser: loginUser,
