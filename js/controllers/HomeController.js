@@ -13,11 +13,15 @@ angular.module('issueSystem.home', [
         '$scope',
         '$location',
         'authentication',
-        function ($scope, $location, authentication) {
+        'notifyService',
+        function ($scope, $location, authentication, notifyService) {
             $scope.login = function (user) {
                 authentication.loginUser(user)
                     .then(function (loggedInUser) {
-                        console.log(loggedInUser);
+                        notifyService.showInfo('You have successfully logged in!');
+                        $location.path('/');
+                    }, function (err) {
+                        notifyService.showError('You were unable to login. Check your credentials!', err.error);
                     });
             };
 

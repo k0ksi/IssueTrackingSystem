@@ -41,7 +41,7 @@ angular.module('issueSystem.users.authentication', [])
                     .then(function (response) {
                         deferred.resolve(response.data);
                     }, function (error) {
-
+                        deferred.reject(error.data);
                     });
 
                 return deferred.promise;
