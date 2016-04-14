@@ -13,6 +13,7 @@ angular.module('issueSystem.users.authentication', [])
 
                 $http.post(BASE_URL + 'Account/Register', user)
                     .then(function (response) {
+                        sessionStorage['currentUser'] = JSON.stringify(response.data);
                         deferred.resolve(response.data);
                     }, function (error) {
                         deferred.reject(error.data);
@@ -39,6 +40,7 @@ angular.module('issueSystem.users.authentication', [])
 
                 $http(request)
                     .then(function (response) {
+                        sessionStorage['currentUser'] = JSON.stringify(response.data);
                         deferred.resolve(response.data);
                     }, function (error) {
                         deferred.reject(error.data);
