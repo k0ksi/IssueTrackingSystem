@@ -11,11 +11,11 @@ angular.module('issueSystem.users.authentication', [])
             function registerUser(user) {
                 var deferred = $q.defer();
 
-                $http.post(BASE_URL + 'Users/Register', user)
+                $http.post(BASE_URL + 'Account/Register', user)
                     .then(function (response) {
                         deferred.resolve(response.data);
                     }, function (error) {
-
+                        deferred.reject(error.data);
                     });
 
                 return deferred.promise;

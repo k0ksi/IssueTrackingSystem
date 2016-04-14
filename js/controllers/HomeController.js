@@ -28,7 +28,10 @@ angular.module('issueSystem.home', [
             $scope.register = function (user) {
                 authentication.registerUser(user)
                     .then(function (registeredUser) {
-                        console.log(registeredUser);
+                        notifyService.showInfo('You have successfully registered!');
+                        $location.path('/');
+                    }, function (err) {
+                        notifyService.showError('You were unable to register! Check the length of your password.', err.error);
                     });
             };
         }]);
