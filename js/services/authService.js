@@ -54,11 +54,15 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function isLoggedIn() {
-                return sessionStorage['currentUser'] != undefined;
+                var isLoggedIn = sessionStorage['currentUser'] != undefined;
+
+                return isLoggedIn;
             }
 
             function isAnonymous() {
-                return sessionStorage['currentUser'] == undefined;
+                var isAnonymous = sessionStorage['currentUser'] == undefined
+
+                return isAnonymous;
             }
 
             function isNormalUser() {
@@ -78,7 +82,7 @@ angular.module('issueSystem.users.authentication', [])
             function getCurrentUser() {
                 var user = sessionStorage['currentUser'];
                 if(user) {
-                    return JSON.parse(sessionStorage['currentUser']);
+                    return JSON.parse(user);
                 }
             }
 
