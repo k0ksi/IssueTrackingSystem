@@ -15,7 +15,6 @@ angular.module('issueSystem.dashboard', [
         function ($scope, myDashboard) {
             myDashboard.getLatestIssues()
                 .then(function (latestIssues) {
-                    console.log(latestIssues);
-                    $scope.latestIssue = latestIssues;
+                    $scope.latestIssues = latestIssues.Issues;
                 });
     }]);

@@ -6,7 +6,6 @@ angular.module('issueSystem.users.authentication', [])
         '$q',
         'BASE_URL_API',
         function($http, $q, BASE_URL_API) {
-            console.log(BASE_URL_API);
 
             function registerUser(user) {
                 var deferred = $q.defer();
@@ -92,6 +91,8 @@ angular.module('issueSystem.users.authentication', [])
                 if(user) {
                     headers['Authorization'] = 'Bearer ' + user.access_token;
                 }
+
+                return headers['Authorization'];
             }
 
             function getUserInfo() {

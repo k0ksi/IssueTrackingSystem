@@ -11,6 +11,7 @@ var app = angular.module('issueSystem', [
 app.constant('BASE_URL_API', 'http://softuni-issue-tracker.azurewebsites.net/api/');
 app.constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/');
 
+// TODO Delete logic below
 /*app.config(function ($stateProvider) {
     $stateProvider.state('root', {
         url: '',
