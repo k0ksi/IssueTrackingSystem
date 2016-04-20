@@ -15,6 +15,16 @@ angular.module('issueSystem.dashboard', [
         function ($scope, myDashboard) {
             myDashboard.getLatestIssues()
                 .then(function (latestIssues) {
-                    $scope.latestIssues = latestIssues.Issues;
+                    var issues = latestIssues.Issues;
+                    $scope.latestIssues = issues;
+
+                    var projectIds = [];
+
+                    for (var i = 0; i < issues.length; i++) {
+                        var issue = issues[i];
+                        projectIds.push(issue.Project.Id);
+                    }
+
+                    console.log(projectIds);
                 });
     }]);
