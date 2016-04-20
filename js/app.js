@@ -4,12 +4,14 @@ var app = angular.module('issueSystem', [
     'ngRoute',
     'ui.router',
     'issueSystem.home',
-    'issueSystem.users.identity'
+    'issueSystem.users.identity',
+    'issueSystem.dashboard'
     ]);
 
-app.constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/api/');
+app.constant('BASE_URL_API', 'http://softuni-issue-tracker.azurewebsites.net/api/');
+app.constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/');
 
-app.config(function ($stateProvider) {
+/*app.config(function ($stateProvider) {
     $stateProvider.state('root', {
         url: '',
         controller: function ($state) {
@@ -28,10 +30,8 @@ app.config(function ($stateProvider) {
         templateUrl: 'templates/dashboard.html',
         controller: 'DashboardController'
     });
-});
+});*/
 
-// TODO Delete code below
-/*
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
         templateUrl: 'templates/home.html',
@@ -39,4 +39,13 @@ app.config(['$routeProvider', function ($routeProvider) {
     });
 
     $routeProvider.otherwise({redirectTo: '/'});
-}]);*/
+}]);
+
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/dashboard', {
+        templateUrl: 'templates/dashboard.html',
+        controller: 'DashboardController'
+    });
+
+    $routeProvider.otherwise({redirectTo: '/'});
+}]);

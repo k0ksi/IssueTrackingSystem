@@ -4,14 +4,14 @@ angular.module('issueSystem.users.authentication', [])
     .factory('authentication', [
         '$http',
         '$q',
-        'BASE_URL',
-        function($http, $q, BASE_URL) {
-            console.log(BASE_URL);
+        'BASE_URL_API',
+        function($http, $q, BASE_URL_API) {
+            console.log(BASE_URL_API);
 
             function registerUser(user) {
                 var deferred = $q.defer();
 
-                $http.post(BASE_URL + 'Account/Register', user)
+                $http.post(BASE_URL_API + 'Account/Register', user)
                     .then(function (response) {
                         sessionStorage['currentUser'] = JSON.stringify(response.data);
                         deferred.resolve(response.data);
@@ -29,7 +29,7 @@ angular.module('issueSystem.users.authentication', [])
 
                 var request = {
                     method: 'POST',
-                    url: BASE_URL + 'Token',
+                    url: BASE_URL_API + 'Token',
                     data: loginData,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -99,7 +99,7 @@ angular.module('issueSystem.users.authentication', [])
 
                 var request = {
                     method: 'GET',
-                    url: BASE_URL + 'users/me',
+                    url: BASE_URL_API + 'users/me',
                     headers: {
                         'Authorization': bearerToken
                     }

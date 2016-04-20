@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('issueSystem.dashboard', [
         'issueSystem.dashboard.myDashboard'
     ])

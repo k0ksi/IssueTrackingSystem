@@ -2,8 +2,8 @@ angular.module('issueSystem.users.identity', [])
     .factory('identity', [
         '$http',
         '$q',
-        'BASE_URL',
-        function ($http, $q, BASE_URL) {
+        'BASE_URL_API',
+        function ($http, $q, BASE_URL_API) {
 
             var deferred = $q.defer();
 
@@ -14,7 +14,7 @@ angular.module('issueSystem.users.identity', [])
             $http.defaults.headers.common.Authorization =
                 'Bearer ' + accessToken;
 
-            $http.get(BASE_URL + 'me')
+            $http.get(BASE_URL_API + 'me')
                 .then(function (response) {
                     currentUser = response.data;
                     deferred.resolve(currentUser);
