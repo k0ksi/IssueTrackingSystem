@@ -1,3 +1,23 @@
 body {
     margin-top: 60px;
 }
+
+.inline {
+    display: inline-block;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.min {
+    min-height: 170px;
+}
+
+.bolded-item {
+    font-weight: 500;
+}

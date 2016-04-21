@@ -12,7 +12,31 @@ angular.module('issueSystem.dashboard.myDashboard', [])
                     method: 'GET',
                     url: BASE_URL + 'issues/me?orderBy=Project.Name desc, IssueKey&pageSize=2&pageNumber=1',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': headers
+                    }
+                };
+
+                var deferred = $q.defer();
+
+                $http(request)
+                    .then(function (issues) {
+                        deferred.resolve(issues.data);
+                    }, function (error) {
+                        deferred.reject(error.data);
+                    });
+
+                return deferred.promise;
+            }
+
+            function getProjectsWithCurrentUserAsLead() {
+                var headers = authentication.getAuthHeaders();
+
+                var leadId = authentication.getUserInfo().Id;
+
+                var request = {
+                    method: 'GET',
+                    url: BASE_URL + 'projects?filter=Lead.Id="92925a62-07ab-435a-819e-33dd6ac907ef"&pageSize=4&pageNumber=1',
+                    headers: {
                         'Authorization': headers
                     }
                 };
@@ -30,6 +54,7 @@ angular.module('issueSystem.dashboard.myDashboard', [])
             }
 
             return {
-                getLatestIssues: getLatestIssues
+                getLatestIssues: getLatestIssues,
+                getProjectsWithCurrentUserAsLead: getProjectsWithCurrentUserAsLead
             }
         }]);

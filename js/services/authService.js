@@ -5,14 +5,15 @@ angular.module('issueSystem.users.authentication', [])
         '$http',
         '$q',
         'BASE_URL_API',
-        function($http, $q, BASE_URL_API) {
+        'BASE_URL',
+        function($http, $q, BASE_URL_API, BASE_URL) {
 
             function registerUser(user) {
                 var deferred = $q.defer();
 
                 $http.post(BASE_URL_API + 'Account/Register', user)
                     .then(function (response) {
-                        sessionStorage['currentUser'] = JSON.stringify(response.data);
+                        sessionStorage['accessToken'] = response.data.access_token;
                         deferred.resolve(response.data);
                     }, function (error) {
                         deferred.reject(error.data);
@@ -39,7 +40,7 @@ angular.module('issueSystem.users.authentication', [])
 
                 $http(request)
                     .then(function (response) {
-                        sessionStorage['currentUser'] = JSON.stringify(response.data);
+                        sessionStorage['accessToken'] = response.data.access_token;
                         deferred.resolve(response.data);
                     }, function (error) {
                         deferred.reject(error.data);
@@ -49,17 +50,17 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function logout() {
-                delete sessionStorage['currentUser'];
+                delete sessionStorage['accessToken'];
             }
 
             function isLoggedIn() {
-                var isLoggedIn = sessionStorage['currentUser'] != undefined;
+                var isLoggedIn = sessionStorage['accessToken'] != undefined;
 
                 return isLoggedIn;
             }
 
             function isAnonymous() {
-                var isAnonymous = sessionStorage['currentUser'] == undefined
+                var isAnonymous = sessionStorage['accessToken'] == undefined;
 
                 return isAnonymous;
             }
@@ -78,18 +79,11 @@ angular.module('issueSystem.users.authentication', [])
                     });
             }
 
-            function getCurrentUser() {
-                var user = sessionStorage['currentUser'];
-                if(user) {
-                    return JSON.parse(user);
-                }
-            }
-
             function getAuthHeaders() {
                 var headers = {};
-                var user = this.getCurrentUser();
-                if(user) {
-                    headers['Authorization'] = 'Bearer ' + user.access_token;
+                var bearerToken = sessionStorage['accessToken'];
+                if(bearerToken) {
+                    headers['Authorization'] = 'Bearer ' + bearerToken;
                 }
 
                 return headers['Authorization'];
@@ -100,7 +94,7 @@ angular.module('issueSystem.users.authentication', [])
 
                 var request = {
                     method: 'GET',
-                    url: BASE_URL_API + 'users/me',
+                    url: BASE_URL + 'users/me',
                     headers: {
                         'Authorization': bearerToken
                     }
@@ -126,7 +120,6 @@ angular.module('issueSystem.users.authentication', [])
                 isAnonymous: isAnonymous,
                 isNormalUser: isNormalUser,
                 isAdmin: isAdmin,
-                getCurrentUser: getCurrentUser,
                 getAuthHeaders: getAuthHeaders,
                 getUserInfo: getUserInfo
             }

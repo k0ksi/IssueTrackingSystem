@@ -1,19 +1,29 @@
 <div class="jumbotron" style="height: 100%">
+<button class="btn btn-success">Dashboard</button>
+<button class="btn btn-success">Projects</button>
 <h1>Dashboard</h1>
-<table class="table table-striped">
-	<thead>
+<div class="inline min">
+	<h2>Affiliated Projects</h2>
+	<a class="bolded-item" href="">entirely new project</a>
+</div>
+<div class="inline right">
+	<table class="table table-striped">
+		<thead>
 		<tr>
-			<td>Issue</td>
+			<td>Title</td>
+			<td>Description</td>
 			<td>Project</td>
 			<td>Due Date</td>
 		</tr>
-	</thead>
-	<tbody>
+		</thead>
+		<tbody>
 		<tr ng-repeat="issue in latestIssues">
+			<td>{{issue.Title}}</td>
 			<td>{{issue.Description}}</td>
 			<td>{{issue.Project.Name}}</td>
 			<td>{{issue.DueDate}}</td>
 		</tr>
-	</tbody>
-</table>
+		</tbody>
+	</table>
+</div>
 </div>
