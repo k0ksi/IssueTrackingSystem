@@ -55,7 +55,6 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function isAnonymous() {
-
                 return sessionStorage['accessToken'] == undefined;
             }
 

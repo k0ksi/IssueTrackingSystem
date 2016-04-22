@@ -2,6 +2,7 @@
 
 var app = angular.module('issueSystem', [
     'ngRoute',
+    'issueSystem.common',
     'issueSystem.home',
     'issueSystem.users.identity',
     'issueSystem.dashboard'

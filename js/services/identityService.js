@@ -3,15 +3,23 @@ angular.module('issueSystem.users.identity', [])
         '$http',
         '$q',
         'BASE_URL_API',
-        function ($http, $q, BASE_URL_API) {
+        'BASE_URL',
+        function ($http, $q, BASE_URL_API, BASE_URL) {
             var deferred = $q.defer(),
                 currentUser = undefined,
-                accessToken = '';
+                accessToken = '',
+                request = {
+                    method: 'GET',
+                    url: BASE_URL + 'users/me',
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage['accessToken']
+                    }
+                };
 
             $http.defaults.headers.common.Authorization =
                 'Bearer ' + accessToken;
 
-            $http.get(BASE_URL_API + 'me')
+            $http(request)
                 .then(function (response) {
                     currentUser = response.data;
                     deferred.resolve(currentUser);

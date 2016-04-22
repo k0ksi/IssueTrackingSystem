@@ -1,5 +1,5 @@
 angular.module('issueSystem.common', [
-        'issueSystem.identity'
+        'issueSystem.users.identity'
     ])
     .controller('MainController', [
         '$scope',

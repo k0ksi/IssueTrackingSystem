@@ -5,8 +5,9 @@ angular.module('issueSystem.dashboard.myDashboard', [])
         '$http',
         '$q',
         'BASE_URL',
+        'identity',
         'authentication',
-        function ($http, $q, BASE_URL, authentication) {
+        function ($http, $q, BASE_URL, identity, authentication) {
             function getLatestIssues() {
                 var headers = authentication.getAuthHeaders(),
                     pageSize = 3,
@@ -32,11 +33,11 @@ angular.module('issueSystem.dashboard.myDashboard', [])
 
             function getProjectsWithCurrentUserAsLead() {
                 var headers = authentication.getAuthHeaders(),
-                    leadId = authentication.getUserInfo().Id,
+                    leadId = identity.getCurrentUser().Id,
                     deferred = $q.defer(),
                     request = {
                         method: 'GET',
-                        url: BASE_URL + 'projects?filter=Lead.Id="92925a62-07ab-435a-819e-33dd6ac907ef"&pageSize=50&pageNumber=1',
+                        url: BASE_URL + 'projects?filter=Lead.Id="' + leadId + '"&pageSize=50&pageNumber=1',
                         headers: {
                             'Authorization': headers
                         }
