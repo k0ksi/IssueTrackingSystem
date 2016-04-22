@@ -4,7 +4,9 @@
 <h1>Dashboard</h1>
 <div class="inline min">
 	<h2>Affiliated Projects</h2>
-	<a class="bolded-item" href="">entirely new project</a>
+	<div class="no-bullets" ng-repeat="project in userAffiliatedProjects">
+		<li class="margin-bottom-5"><a href="">{{project.Name}}</a></li>
+	</div>
 </div>
 <div class="inline right">
 	<table class="table table-striped">

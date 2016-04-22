@@ -21,3 +21,11 @@ body {
 .bolded-item {
     font-weight: 500;
 }
+
+.no-bullets {
+    list-style-type: none;
+}
+
+.margin-bottom-5 {
+    margin-bottom: 5px;
+}

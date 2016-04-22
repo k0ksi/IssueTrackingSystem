@@ -7,7 +7,6 @@ angular.module('issueSystem.users.authentication', [])
         'BASE_URL_API',
         'BASE_URL',
         function($http, $q, BASE_URL_API, BASE_URL) {
-
             function registerUser(user) {
                 var deferred = $q.defer();
 
@@ -25,18 +24,16 @@ angular.module('issueSystem.users.authentication', [])
             function loginUser(user) {
                 var loginData = 'Username=' + user.username +
                               '&Password=' + user.password +
-                              '&grant_type=password';
-
-                var request = {
-                    method: 'POST',
-                    url: BASE_URL_API + 'Token',
-                    data: loginData,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                };
-
-                var deferred = $q.defer();
+                              '&grant_type=password',
+                    deferred = $q.defer(),
+                    request = {
+                        method: 'POST',
+                        url: BASE_URL_API + 'Token',
+                        data: loginData,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    };
 
                 $http(request)
                     .then(function (response) {
@@ -54,15 +51,11 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function isLoggedIn() {
-                var isLoggedIn = sessionStorage['accessToken'] != undefined;
-
-                return isLoggedIn;
+                return sessionStorage['accessToken'] != undefined;
             }
 
             function isAnonymous() {
-                var isAnonymous = sessionStorage['accessToken'] == undefined;
-
-                return isAnonymous;
+                return sessionStorage['accessToken'] == undefined;
             }
 
             function isNormalUser() {
@@ -80,8 +73,9 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function getAuthHeaders() {
-                var headers = {};
-                var bearerToken = sessionStorage['accessToken'];
+                var headers = {},
+                    bearerToken = sessionStorage['accessToken'];
+
                 if(bearerToken) {
                     headers['Authorization'] = 'Bearer ' + bearerToken;
                 }
@@ -90,17 +84,15 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function getUserInfo() {
-                var bearerToken = this.getAuthHeaders();
-
-                var request = {
-                    method: 'GET',
-                    url: BASE_URL + 'users/me',
-                    headers: {
-                        'Authorization': bearerToken
-                    }
-                };
-
-                var deferred = $q.defer();
+                var bearerToken = this.getAuthHeaders(),
+                    deferred = $q.defer(),
+                    request = {
+                        method: 'GET',
+                        url: BASE_URL + 'users/me',
+                        headers: {
+                            'Authorization': bearerToken
+                        }
+                    };
 
                 $http(request)
                     .then(function (response) {

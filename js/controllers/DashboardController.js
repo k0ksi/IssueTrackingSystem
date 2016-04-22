@@ -13,30 +13,29 @@ angular.module('issueSystem.dashboard', [
         '$scope',
         'myDashboard',
         function ($scope, myDashboard) {
-            var projectIds = [];
+            var affiliatedProjects = [];
 
             myDashboard.getLatestIssues()
                 .then(function (latestIssues) {
-                    var issues = latestIssues.Issues;
-                    $scope.latestIssues = issues;
+                    $scope.latestIssues = latestIssues.Issues;
 
-                    for (var i = 0; i < issues.length; i++) {
-                        var issue = issues[i];
-                        projectIds.push(issue.Project.Id);
+                    var issuesLength = latestIssues.Issues.length;
+                    for (var i = 0; i < issuesLength; i++) {
+                        var issue = latestIssues.Issues[i];
+                        affiliatedProjects.push(issue.Project);
                     }
                 });
 
             myDashboard.getProjectsWithCurrentUserAsLead()
                 .then(function (myProjects) {
-                    var projects = myProjects.Projects;
+                    $scope.myProjects = myProjects.Projects;
 
-                    $scope.myProjects = projects;
-
-                    for (var i = 0; i < projects.length; i++) {
-                        var project = projects[i];
-                        projectIds.push(project.Id);
+                    var projectsLength = myProjects.Projects.length;
+                    for (var i = 0; i < projectsLength; i++) {
+                        var project = myProjects.Projects[i];
+                        affiliatedProjects.push(project);
                     }
 
-                    $scope.projectIds = projectIds;
+                    $scope.userAffiliatedProjects = affiliatedProjects;
                 });
     }]);

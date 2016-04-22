@@ -34,4 +34,4 @@ app.run(function ($rootScope, $location, authentication) {
             $location.path('/');
         }
     })
-})
+});

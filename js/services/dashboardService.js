@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('issueSystem.dashboard.myDashboard', [])
     .factory('myDashboard', [
         '$http',
@@ -6,17 +8,17 @@ angular.module('issueSystem.dashboard.myDashboard', [])
         'authentication',
         function ($http, $q, BASE_URL, authentication) {
             function getLatestIssues() {
-                var headers = authentication.getAuthHeaders();
-
-                var request = {
-                    method: 'GET',
-                    url: BASE_URL + 'issues/me?orderBy=Project.Name desc, IssueKey&pageSize=2&pageNumber=1',
-                    headers: {
-                        'Authorization': headers
-                    }
-                };
-
-                var deferred = $q.defer();
+                var headers = authentication.getAuthHeaders(),
+                    pageSize = 3,
+                    pageNumber = 1,
+                    deferred = $q.defer(),
+                    request = {
+                        method: 'GET',
+                        url: BASE_URL + 'issues/me?orderBy=DueDate desc, IssueKey&pageSize=' + pageSize + '&pageNumber=' + pageNumber,
+                        headers: {
+                            'Authorization': headers
+                        }
+                    };
 
                 $http(request)
                     .then(function (issues) {
@@ -29,19 +31,16 @@ angular.module('issueSystem.dashboard.myDashboard', [])
             }
 
             function getProjectsWithCurrentUserAsLead() {
-                var headers = authentication.getAuthHeaders();
-
-                var leadId = authentication.getUserInfo().Id;
-
-                var request = {
-                    method: 'GET',
-                    url: BASE_URL + 'projects?filter=Lead.Id="92925a62-07ab-435a-819e-33dd6ac907ef"&pageSize=4&pageNumber=1',
-                    headers: {
-                        'Authorization': headers
-                    }
-                };
-
-                var deferred = $q.defer();
+                var headers = authentication.getAuthHeaders(),
+                    leadId = authentication.getUserInfo().Id,
+                    deferred = $q.defer(),
+                    request = {
+                        method: 'GET',
+                        url: BASE_URL + 'projects?filter=Lead.Id="92925a62-07ab-435a-819e-33dd6ac907ef"&pageSize=50&pageNumber=1',
+                        headers: {
+                            'Authorization': headers
+                        }
+                    };
 
                 $http(request)
                     .then(function (issues) {
