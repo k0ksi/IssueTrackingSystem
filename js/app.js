@@ -3,8 +3,8 @@
 var app = angular.module('issueSystem', [
     'ngRoute',
     'issueSystem.common',
-    'issueSystem.home',
     'issueSystem.users.identity',
+    'issueSystem.home',
     'issueSystem.dashboard'
     ]);
 
@@ -21,7 +21,7 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.when('/dashboard', {
+    $routeProvider.when('/home', {
         templateUrl: 'templates/dashboard.html',
         controller: 'DashboardController'
     });
@@ -31,8 +31,14 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.run(function ($rootScope, $location, authentication) {
     $rootScope.$on('$locationChangeStart', function (event) {
-        if($location.path().indexOf("/user/") != -1 && !authentication.isLoggedIn()) {
+        if($location.path().indexOf("/home") != -1 && !authentication.isLoggedIn()) {
             $location.path('/');
+        }
+    })
+
+    $rootScope.$on('$locationChangeStart', function (event) {
+        if($location.path().indexOf("/") != -1 && authentication.isLoggedIn()) {
+            $location.path('/home');
         }
     })
 });

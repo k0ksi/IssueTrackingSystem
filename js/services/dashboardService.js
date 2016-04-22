@@ -32,8 +32,9 @@ angular.module('issueSystem.dashboard.myDashboard', [])
             }
 
             function getProjectsWithCurrentUserAsLead() {
+                var leadId = sessionStorage['currentUserId'];
+
                 var headers = authentication.getAuthHeaders(),
-                    leadId = identity.getCurrentUser().Id,
                     deferred = $q.defer(),
                     request = {
                         method: 'GET',

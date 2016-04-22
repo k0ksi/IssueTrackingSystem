@@ -18,6 +18,10 @@ angular.module('issueSystem.home', [
             $scope.login = function (user) {
                 authentication.loginUser(user)
                     .then(function (loggedInUser) {
+                        authentication.getUserInfo()
+                            .then(function (user) {
+                                sessionStorage['currentUserId'] = user.Id;
+                            });
                         notifyService.showInfo('You have successfully logged in!');
                         $location.path('/dashboard');
                     }, function (err) {
