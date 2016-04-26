@@ -1,14 +1,11 @@
-angular.module('issueSystem.common', [
-        'issueSystem.users.identity'
-    ])
+angular.module('issueSystem.common', [])
     .controller('MainController', [
         '$scope',
         'identity',
-        function ($scope, identity) {
+        function($scope, identity) {
             identity.getCurrentUser()
-                .then(function (user) {
+                .then(function(user) {
                     $scope.currentUser = user;
+                    $scope.isAuthenticated = true;
                 });
-
-            $scope.isAuthenticated = identity.isAuthenticated();
         }]);
