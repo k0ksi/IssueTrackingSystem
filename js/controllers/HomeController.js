@@ -15,9 +15,9 @@ angular.module('issueSystem.home', [
         'authentication',
         'notifyService',
         function ($scope, $location, authentication, notifyService) {
-            /*if(authentication.isAuthenticated()) {
+            if(authentication.isAuthenticated()) {
                 $location.path('/home');
-            }*/
+            }
 
             $scope.login = function (user) {
                 authentication.loginUser(user)
