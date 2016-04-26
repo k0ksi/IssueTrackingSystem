@@ -31,9 +31,7 @@ angular.module('issueSystem.dashboard.myDashboard', [])
                 return deferred.promise;
             }
 
-            function getProjectsWithCurrentUserAsLead() {
-                var leadId = sessionStorage['currentUserId'];
-
+            function getProjectsWithCurrentUserAsLead(leadId) {
                 var headers = authentication.getAuthHeaders(),
                     deferred = $q.defer(),
                     request = {

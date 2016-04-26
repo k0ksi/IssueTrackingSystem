@@ -14,6 +14,7 @@ angular.module('issueSystem.dashboard', [
         'myDashboard',
         function ($scope, myDashboard) {
             var affiliatedProjects = [];
+            var currentUserId = $scope.currentUser.Id;
 
             myDashboard.getLatestIssues()
                 .then(function (latestIssues) {
@@ -26,7 +27,7 @@ angular.module('issueSystem.dashboard', [
                     }
                 });
 
-            myDashboard.getProjectsWithCurrentUserAsLead()
+            myDashboard.getProjectsWithCurrentUserAsLead(currentUserId)
                 .then(function (myProjects) {
                     $scope.myProjects = myProjects.Projects;
 

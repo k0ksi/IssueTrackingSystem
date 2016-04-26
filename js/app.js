@@ -2,10 +2,12 @@
 
 var app = angular.module('issueSystem', [
     'ngRoute',
+    'ngCookies',
     'issueSystem.common',
     'issueSystem.users.identity',
     'issueSystem.home',
-    'issueSystem.dashboard'
+    'issueSystem.dashboard',
+    'issueSystem.dashboard.myDashboard'
     ]);
 
 app.constant('BASE_URL_API', 'http://softuni-issue-tracker.azurewebsites.net/api/');
@@ -30,14 +32,16 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app.run(function ($rootScope, $location, authentication) {
+    authentication.refreshCookie();
+
     $rootScope.$on('$locationChangeStart', function (event) {
-        if($location.path().indexOf("/home") != -1 && !authentication.isLoggedIn()) {
+        if($location.path().indexOf("/home") != -1 && !authentication.isAuthenticated()) {
             $location.path('/');
         }
     })
 
     $rootScope.$on('$locationChangeStart', function (event) {
-        if($location.path().indexOf("/") != -1 && authentication.isLoggedIn()) {
+        if($location.path().indexOf("/") != -1 && authentication.isAuthenticated()) {
             $location.path('/home');
         }
     })

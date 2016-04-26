@@ -6,24 +6,7 @@ angular.module('issueSystem.users.identity', [])
         'BASE_URL',
         function ($http, $q, BASE_URL_API, BASE_URL) {
             var deferred = $q.defer(),
-                currentUser = undefined,
-                accessToken = '',
-                request = {
-                    method: 'GET',
-                    url: BASE_URL + 'users/me',
-                    headers: {
-                        'Authorization': 'Bearer ' + sessionStorage['accessToken']
-                    }
-                };
-
-            $http.defaults.headers.common.Authorization =
-                'Bearer ' + accessToken;
-
-            $http(request)
-                .then(function (response) {
-                    currentUser = response.data;
-                    deferred.resolve(currentUser);
-                });
+                currentUser = undefined;
 
             return {
                 getCurrentUser: function () {
@@ -33,8 +16,20 @@ angular.module('issueSystem.users.identity', [])
                         return deferred.promise;
                     }
                 },
-                isAuthenticated: function () {
-                    return true;
+                removeUserProfile: function () {
+                    currentUser = undefined;
+                },
+                requestUserProfile: function () {
+                    var userProfileDeferred = $q.defer();
+
+                    $http.get(BASE_URL + 'users/me')
+                        .then(function (response) {
+                            currentUser = response.data;
+                            deferred.resolve(currentUser);
+                            userProfileDeferred.resolve();
+                        });
+
+                    return userProfileDeferred.promise;
                 }
-            };
+            }
         }]);
