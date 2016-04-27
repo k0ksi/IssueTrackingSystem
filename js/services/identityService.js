@@ -2,11 +2,13 @@ angular.module('issueSystem.users.identity', [])
     .factory('identity', [
         '$http',
         '$q',
+        '$cookies',
         'BASE_URL_API',
         'BASE_URL',
-        function ($http, $q, BASE_URL_API, BASE_URL) {
+        function ($http, $q, $cookies, BASE_URL_API, BASE_URL) {
             var deferred = $q.defer(),
-                currentUser = undefined;
+                currentUser = undefined,
+                ID_KEY = '!__Id_Cookie_Key_!';
 
             return {
                 getCurrentUser: function () {
@@ -25,6 +27,7 @@ angular.module('issueSystem.users.identity', [])
                     $http.get(BASE_URL + 'users/me')
                         .then(function (response) {
                             currentUser = response.data;
+                            $cookies.put(ID_KEY, btoa(response.data.Id));
                             deferred.resolve(currentUser);
                             userProfileDeferred.resolve();
                         });

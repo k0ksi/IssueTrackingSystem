@@ -12,9 +12,10 @@ angular.module('issueSystem.dashboard', [
     .controller('DashboardController', [
         '$scope',
         'myDashboard',
-        function ($scope, myDashboard) {
+        'authentication',
+        function ($scope, myDashboard, authentication) {
             var affiliatedProjects = [];
-            var currentUserId = $scope.currentUser.Id;
+            var currentUserId = authentication.getUserId();
 
             myDashboard.getLatestIssues()
                 .then(function (latestIssues) {

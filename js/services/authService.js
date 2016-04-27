@@ -10,12 +10,13 @@ angular.module('issueSystem.users.authentication', [])
         'BASE_URL_API',
         'BASE_URL',
         function($http, $cookies, $q, $location, identity, BASE_URL_API, BASE_URL) {
-            var AUTHENTICATION_COOKIE_KEY = '!__Authentication_Cookie_Key_!';
+            var AUTHENTICATION_COOKIE_KEY = '!__Authentication_Cookie_Key_!',
+                ID_KEY = '!__Id_Cookie_Key_!';
 
             function preserveUserData(data) {
                 var accessToken = data.access_token;
                 $http.defaults.headers.common.Authorization = 'Bearer ' + accessToken;
-                $cookies.put(AUTHENTICATION_COOKIE_KEY, accessToken);
+                $cookies.put(AUTHENTICATION_COOKIE_KEY, btoa(accessToken));
             }
 
             function registerUser(user) {
@@ -82,9 +83,13 @@ angular.module('issueSystem.users.authentication', [])
 
             function refreshCookie() {
                 if(isAuthenticated()) {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get(AUTHENTICATION_COOKIE_KEY);
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + atob($cookies.get(AUTHENTICATION_COOKIE_KEY));
                     identity.requestUserProfile();
                 }
+            }
+
+            function getUserId() {
+                return atob($cookies.get(ID_KEY));
             }
 
             return {
@@ -93,6 +98,7 @@ angular.module('issueSystem.users.authentication', [])
                 logout: logout,
                 getAuthHeaders: getAuthHeaders,
                 isAuthenticated: isAuthenticated,
-                refreshCookie: refreshCookie
+                refreshCookie: refreshCookie,
+                getUserId: getUserId
             }
     }]);
