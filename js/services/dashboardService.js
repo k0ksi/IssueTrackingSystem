@@ -26,12 +26,10 @@ angular.module('issueSystem.dashboard.myDashboard', [])
 
             function getLatestIssues(issuesParams) {
                 var headers = authentication.getAuthHeaders(),
-                    pageSize = issuesParams.pageSize,
-                    pageNumber = 1,
                     deferred = $q.defer(),
                     request = {
                         method: 'GET',
-                        url: BASE_URL + 'issues/me?orderBy=DueDate desc, IssueKey&pageSize=' + pageSize + '&pageNumber=' + pageNumber,
+                        url: BASE_URL + 'issues/me?orderBy=Project.Name desc, IssueKey&pageSize=100&pageNumber=1',
                         headers: {
                             'Authorization': headers
                         }
@@ -72,6 +70,7 @@ angular.module('issueSystem.dashboard.myDashboard', [])
                 getLatestIssues: function (params, success, error) {
                     return issuesResource.getLatestIssues(params, success, error);
                 },
-                getProjectsWithCurrentUserAsLead: getProjectsWithCurrentUserAsLead
+                getProjectsWithCurrentUserAsLead: getProjectsWithCurrentUserAsLead,
+                getAllIssues: getLatestIssues
             }
         }]);

@@ -19,16 +19,16 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr ng-repeat="issue in latestIssues">
+		<tr ng-repeat="issue in issues.Issues">
 			<td><a href="">{{issue.Title}}</a></td>
 			<td>{{issue.Description}}</td>
 			<td><a href="">{{issue.Project.Name}}</a></td>
-			<td>{{issue.DueDate}}</td>
+			<td>{{issue.DueDate | date : 'dd MMMM yyyy'}}</td>
 		</tr>
 		</tbody>
 	</table>
 
-	<pagination total-items="latestIssues.TotalCount" ng-model="issuesParams.startPage" items-per-page="issuesParams.pageSize" ng-change="reloadIssues()" max-size="9" boundary-links="true">
+	<pagination total-items="issues.TotalCount" ng-model="issuesParams.pageNumber" items-per-page="issuesParams.pageSize" ng-change="reloadIssues()" max-size="9" boundary-links="true">
 	</pagination>
 </div>
 </div>

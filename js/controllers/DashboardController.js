@@ -28,24 +28,31 @@ angular.module('issueSystem.dashboard', [
                 myDashboard.getLatestIssues(
                     $scope.issuesParams,
                     function success(data) {
-                        $scope.issues = data.Issues;
-                    });
-
-                    /*.then(function (latestIssues) {
-                        $scope.latestIssues = latestIssues.Issues;
-
-                        var issuesLength = latestIssues.Issues.length;
+                        $scope.issues = data;
+                        var issuesLength = data.Issues.length;
                         for (var i = 0; i < issuesLength; i++) {
-                            var issue = latestIssues.Issues[i];
+                            var issue = data.Issues[i];
                             if(!projectIds[issue.Project.Id]) {
                                 affiliatedProjects.push(issue.Project);
                                 projectIds[issue.Project.Id] = issue.Project.Id;
                             }
                         }
-                    });*/
+                    });
             };
 
             $scope.reloadIssues();
+
+            myDashboard.getAllIssues()
+                .then(function (allIssues) {
+                    var issuesLength = allIssues.Issues.length;
+                    for (var i = 0; i < issuesLength; i++) {
+                        var issue = allIssues.Issues[i];
+                        if(!projectIds[issue.Project.Id]) {
+                            affiliatedProjects.push(issue.Project);
+                            projectIds[issue.Project.Id] = issue.Project.Id;
+                        }
+                    }
+                });
 
             myDashboard.getProjectsWithCurrentUserAsLead(currentUserId)
                 .then(function (myProjects) {

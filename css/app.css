@@ -34,3 +34,41 @@ body {
     float: right;
     margin-top: 0px;
 }
+
+.no-bullets > li > a, tbody > tr > td > a {
+    color: rgb(60, 160, 200);
+}
+
+.no-bullets > li > a:hover, tbody > tr > td > a:hover {
+    color: rgb(46, 121, 186);
+}
+
+.no-bullets > li > a:hover {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: white;
+    cursor: default;
+    background-color: rgb(63, 183, 218);
+    border-color: rgb(44, 157, 189);
+}
+
+.pagination>li>a, .pagination>li>span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: rgb(63, 183, 218);
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination>li>a:hover {
+    color: rgb(63, 183, 218);
+    background-color: rgb(248, 248, 248);
+}

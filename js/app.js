@@ -14,6 +14,7 @@ var app = angular.module('issueSystem', [
 
 app.constant('BASE_URL_API', 'http://softuni-issue-tracker.azurewebsites.net/api/');
 app.constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/');
+app.constant('pageSize', 3);
 
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
