@@ -4,13 +4,29 @@ angular.module('issueSystem.dashboard.myDashboard', [])
     .factory('myDashboard', [
         '$http',
         '$q',
+        '$resource',
         'BASE_URL',
         'identity',
         'authentication',
-        function ($http, $q, BASE_URL, identity, authentication) {
-            function getLatestIssues() {
+        function ($http, $q, $resource, BASE_URL, identity, authentication) {
+            var headers = authentication.getAuthHeaders();
+
+            var issuesResource = $resource(
+                BASE_URL + 'issues/me',
+                null,
+                {
+                    'getLatestIssues': {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': headers
+                        }
+                    }
+                }
+            );
+
+            function getLatestIssues(issuesParams) {
                 var headers = authentication.getAuthHeaders(),
-                    pageSize = 3,
+                    pageSize = issuesParams.pageSize,
                     pageNumber = 1,
                     deferred = $q.defer(),
                     request = {
@@ -53,7 +69,9 @@ angular.module('issueSystem.dashboard.myDashboard', [])
             }
 
             return {
-                getLatestIssues: getLatestIssues,
+                getLatestIssues: function (params, success, error) {
+                    return issuesResource.getLatestIssues(params, success, error);
+                },
                 getProjectsWithCurrentUserAsLead: getProjectsWithCurrentUserAsLead
             }
         }]);

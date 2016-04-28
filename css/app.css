@@ -29,3 +29,8 @@ body {
 .margin-bottom-5 {
     margin-bottom: 5px;
 }
+
+.pagination {
+    float: right;
+    margin-top: 0px;
+}

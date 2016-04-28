@@ -14,19 +14,38 @@ angular.module('issueSystem.dashboard', [
         'myDashboard',
         'authentication',
         function ($scope, myDashboard, authentication) {
-            var affiliatedProjects = [];
-            var currentUserId = authentication.getUserId();
+            $scope.issuesParams = {
+                'pageNumber' : 1,
+                'pageSize' : 3,
+                'orderBy': 'Project.Name desc, IssueKey'
+            };
 
-            myDashboard.getLatestIssues()
-                .then(function (latestIssues) {
-                    $scope.latestIssues = latestIssues.Issues;
+            var affiliatedProjects = [],
+                projectIds = {},
+                currentUserId = authentication.getUserId();
 
-                    var issuesLength = latestIssues.Issues.length;
-                    for (var i = 0; i < issuesLength; i++) {
-                        var issue = latestIssues.Issues[i];
-                        affiliatedProjects.push(issue.Project);
-                    }
-                });
+            $scope.reloadIssues = function () {
+                myDashboard.getLatestIssues(
+                    $scope.issuesParams,
+                    function success(data) {
+                        $scope.issues = data.Issues;
+                    });
+
+                    /*.then(function (latestIssues) {
+                        $scope.latestIssues = latestIssues.Issues;
+
+                        var issuesLength = latestIssues.Issues.length;
+                        for (var i = 0; i < issuesLength; i++) {
+                            var issue = latestIssues.Issues[i];
+                            if(!projectIds[issue.Project.Id]) {
+                                affiliatedProjects.push(issue.Project);
+                                projectIds[issue.Project.Id] = issue.Project.Id;
+                            }
+                        }
+                    });*/
+            };
+
+            $scope.reloadIssues();
 
             myDashboard.getProjectsWithCurrentUserAsLead(currentUserId)
                 .then(function (myProjects) {
@@ -35,7 +54,10 @@ angular.module('issueSystem.dashboard', [
                     var projectsLength = myProjects.Projects.length;
                     for (var i = 0; i < projectsLength; i++) {
                         var project = myProjects.Projects[i];
-                        affiliatedProjects.push(project);
+                        if(!projectIds[project.Id]) {
+                            affiliatedProjects.push(project);
+                            projectIds[project.Id] = project.Id;
+                        }
                     }
 
                     $scope.userAffiliatedProjects = affiliatedProjects;

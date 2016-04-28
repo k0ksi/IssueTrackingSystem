@@ -3,6 +3,8 @@
 var app = angular.module('issueSystem', [
     'ngRoute',
     'ngCookies',
+    'ngResource',
+    'ui.bootstrap.pagination',
     'issueSystem.common',
     'issueSystem.users.identity',
     'issueSystem.home',

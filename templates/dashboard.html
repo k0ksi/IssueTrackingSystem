@@ -27,5 +27,8 @@
 		</tr>
 		</tbody>
 	</table>
+
+	<pagination total-items="latestIssues.TotalCount" ng-model="issuesParams.startPage" items-per-page="issuesParams.pageSize" ng-change="reloadIssues()" max-size="9" boundary-links="true">
+	</pagination>
 </div>
 </div>
