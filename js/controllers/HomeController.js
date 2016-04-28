@@ -21,8 +21,9 @@ angular.module('issueSystem.home', [
 
             $scope.login = function (user) {
                 authentication.loginUser(user)
-                    .then(function (loggedInUser) {
+                    .then(function () {
                         notifyService.showInfo('You have successfully logged in!');
+                        $scope.isAuthenticated = true;
                         $location.path('/dashboard');
                     }, function (err) {
                         notifyService.showError('You were unable to login. Check your credentials!', err.error);
@@ -31,11 +32,12 @@ angular.module('issueSystem.home', [
 
             $scope.register = function (user) {
                 authentication.registerUser(user)
-                    .then(function (registeredUser) {
+                    .then(function () {
                         notifyService.showInfo('You have successfully registered!');
+                        $scope.isAuthenticated = true;
                         $location.path('/dashboard');
                     }, function (err) {
                         notifyService.showError('You were unable to register! Check the length of your password.', err.error);
                     });
-            };
+            };            
         }]);

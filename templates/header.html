@@ -1,12 +1,4 @@
 <div class="navbar-header">
-   <!-- <div ng-if="authentication.isLoggedIn()">
-        <a href="#/dashboard" class="navbar-brand">Issue Tracking System</a>
-        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>-->
     <div>
         <a href="#/" class="navbar-brand">Issue Tracking System</a>
         <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -17,20 +9,14 @@
     </div>
 </div>
 <div class="navbar-collapse collapse" id="navbar-main">
-    <!--<div ng-if="authentication.isLoggedIn()">
+    <div ng-if="isAuthenticated">
         <ul class="nav navbar-nav">
             <li>
                 <a href="#/dashboard">Home</a>
             </li>
-        </ul>
-    </div>-->
-    <div ng-if="true">
-        <ul class="nav navbar-nav">
             <li>
-                <a href="#/">Home</a>
+                <a ng-click="logout()" class="link">Logout</a>
             </li>
         </ul>
     </div>
-    <ul class="nav navbar-nav navbar-right">
-    </ul>
 </div>

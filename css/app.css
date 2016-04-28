@@ -1,5 +1,17 @@
 body {
     margin-top: 60px;
+    background-color: rgb(219, 228, 241);
+}
+
+.sign-box {
+    padding: 30px;
+    background-color: white;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.link {
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .inline {
@@ -30,6 +42,30 @@ body {
     margin-bottom: 5px;
 }
 
+.float-right {
+    float: right;
+}
+
+.dashboard {
+    background:white !important;
+    border-radius: 3px;
+    padding: 60px;
+}
+
+.project-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.info-panel {
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(66, 102, 122);
+    border: 1px solid rgb(203, 226, 232);
+    background: linear-gradient(to bottom, rgba(213,235,246,1) 0%, rgba(206,232,245,1) 41%, rgba(195,227,242,1) 100%);
+}
+
 .pagination {
     float: right;
     margin-top: 0px;
@@ -41,6 +77,10 @@ body {
 
 .no-bullets > li > a:hover, tbody > tr > td > a:hover {
     color: rgb(46, 121, 186);
+}
+
+.no-bullets > li > a {
+    font-size: 15px;
 }
 
 .no-bullets > li > a:hover {

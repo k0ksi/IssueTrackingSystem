@@ -24,7 +24,7 @@ angular.module('issueSystem.dashboard.myDashboard', [])
                 }
             );
 
-            function getLatestIssues(issuesParams) {
+            function getLatestIssues() {
                 var headers = authentication.getAuthHeaders(),
                     deferred = $q.defer(),
                     request = {

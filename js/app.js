@@ -22,13 +22,14 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'HomeController'
     });
 
-    $routeProvider.otherwise({redirectTo: '/'});
-}]);
-
-app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/home', {
         templateUrl: 'templates/dashboard.html',
         controller: 'DashboardController'
+    });
+
+    $routeProvider.when('/project/:id', {
+        templateUrl: 'templates/project-page.html',
+        controller: 'ProjectsController'
     });
 
     $routeProvider.otherwise({redirectTo: '/'});
@@ -37,15 +38,13 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.run(function ($rootScope, $location, authentication) {
     authentication.refreshCookie();
 
-    $rootScope.$on('$locationChangeStart', function (event) {
+    $rootScope.$on('$locationChangeStart', function () {
         if($location.path().indexOf("/home") != -1 && !authentication.isAuthenticated()) {
             $location.path('/');
         }
-    })
 
-    $rootScope.$on('$locationChangeStart', function (event) {
         if($location.path().indexOf("/") != -1 && authentication.isAuthenticated()) {
             $location.path('/home');
         }
-    })
+    });
 });

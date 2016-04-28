@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('issueSystem.users.identity', [])
     .factory('identity', [
         '$http',

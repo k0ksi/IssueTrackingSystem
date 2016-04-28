@@ -8,12 +8,12 @@
 	<link rel="stylesheet" type="text/css" href="css/app.css" />
 </head>
 <body ng-controller="MainController">
-	<div class="navbar navbar-default navbar-fixed-top">
-		<div class="container" ng-include="'templates/header.html'">
+	<div ng-controller="HomeController" class="container">
+		<div class="navbar navbar-default navbar-fixed-top">
+			<div class="container" ng-include="'templates/header.html'">
+			</div>
 		</div>
-	</div>
 
-	<div class="container">
 		<div ng-view />
 	</div>
 
@@ -35,5 +35,6 @@
 	<script src="js/controllers/HomeController.js"></script>
 	<script src="js/controllers/MainController.js"></script>
 	<script src="js/controllers/DashboardController.js"></script>
+	<script src="js/controllers/ProjectsController.js"></script>
 </body>
 </html>

@@ -1,0 +1,51 @@
+<div class="dashboard">
+    <button class="btn btn-success">Dashboard</button>
+    <button class="btn btn-success">Projects</button>
+    <div class="alert alert-success info-panel" role="alert">Project Page</div>
+    <div class="project-details inline">
+        <p class="project-title inline">123adfj</p>
+        <button class="btn btn-success">Edit</button>
+        <button class="btn btn-success">Add Issue</button>
+        <div>
+            <label for="project-key">Project key: </label>
+            <p class="inline" id="project-key">123adfj</p>
+            <br/>
+            <label class="bolded-item" for="name">Name </label>
+            <input class="inline" id="name" value="new project"/>
+            <br/>
+            <label class="bolded-item" for="description">Description </label>
+            <input class="inline" id="description" value="Description"/>
+            <br/>
+            <label class="bolded-item" for="leadId">LeadId </label>
+            <p class="inline" id="leadId">(currentId: 342234324erdsfg)</p>
+            <input class="inline" name="description" value="admin@abv.bg"/>
+            <br/>
+            <label class="bolded-item" for="labels">Labels: </label>
+            <p class="inline" id="labels">Label1, Label2</p>
+            <br/>
+            <label class="bolded-item" for="priorities">Priorities: </label>
+            <p class="inline" id="priorities">Low, Urgent</p>
+            <br/>
+        </div>
+    </div>
+    <div class="float-right issues-list inline">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Title</td>
+                <td>Description</td>
+                <td>Project</td>
+                <td>Due Date</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="issue in issues.Issues">
+                <td><a href="">{{issue.Title}}</a></td>
+                <td>{{issue.Description}}</td>
+                <td><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
+                <td>{{issue.DueDate | date : 'dd MMMM yyyy'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

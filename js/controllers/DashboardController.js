@@ -17,7 +17,7 @@ angular.module('issueSystem.dashboard', [
             $scope.issuesParams = {
                 'pageNumber' : 1,
                 'pageSize' : 3,
-                'orderBy': 'Project.Name desc, IssueKey'
+                'orderBy': 'DueDate desc'
             };
 
             var affiliatedProjects = [],

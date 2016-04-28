@@ -9,7 +9,7 @@ angular.module('issueSystem.users.authentication', [])
         'identity',
         'BASE_URL_API',
         'BASE_URL',
-        function($http, $cookies, $q, $location, identity, BASE_URL_API, BASE_URL) {
+        function($http, $cookies, $q, $location, identity, BASE_URL_API) {
             var AUTHENTICATION_COOKIE_KEY = '!__Authentication_Cookie_Key_!',
                 ID_KEY = '!__Id_Cookie_Key_!';
 
@@ -67,7 +67,9 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function isAuthenticated() {
-                return !!$cookies.get(AUTHENTICATION_COOKIE_KEY);
+                var isAuthenticated = !!$cookies.get(AUTHENTICATION_COOKIE_KEY);
+
+                return isAuthenticated;
             }
 
             function logout() {
