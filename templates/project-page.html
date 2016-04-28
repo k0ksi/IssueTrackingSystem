@@ -3,22 +3,22 @@
     <button class="btn btn-success">Projects</button>
     <div class="alert alert-success info-panel" role="alert">Project Page</div>
     <div class="project-details inline">
-        <p class="project-title inline">123adfj</p>
+        <p class="project-title inline">{{projectData.ProjectKey}}</p>
         <button class="btn btn-success">Edit</button>
         <button class="btn btn-success">Add Issue</button>
         <div>
             <label for="project-key">Project key: </label>
-            <p class="inline" id="project-key">123adfj</p>
+            <p class="inline" id="project-key">{{projectData.ProjectKey}}</p>
             <br/>
             <label class="bolded-item" for="name">Name </label>
-            <input class="inline" id="name" value="new project"/>
+            <input class="inline" id="name" value="{{projectData.Name}}"/>
             <br/>
             <label class="bolded-item" for="description">Description </label>
-            <input class="inline" id="description" value="Description"/>
+            <input class="inline" id="description" value="{{projectData.Description}}"/>
             <br/>
             <label class="bolded-item" for="leadId">LeadId </label>
-            <p class="inline" id="leadId">(currentId: 342234324erdsfg)</p>
-            <input class="inline" name="description" value="admin@abv.bg"/>
+            <p class="inline" id="leadId">(current id: {{projectData.Lead.Id}})</p>
+            <input class="inline" name="description" value="{{projectData.Lead.Username}}"/>
             <br/>
             <label class="bolded-item" for="labels">Labels: </label>
             <p class="inline" id="labels">Label1, Label2</p>
@@ -28,7 +28,7 @@
             <br/>
         </div>
     </div>
-    <div class="float-right issues-list inline">
+    <!--<div class="float-right issues-list inline">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -39,13 +39,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="issue in issues.Issues">
-                <td><a href="">{{issue.Title}}</a></td>
-                <td>{{issue.Description}}</td>
+            <tr ng-repeat="project in projects">
+                <td><a href="">{{project.Name}}</a></td>
+                <td>{{project.Description}}</td>
                 <td><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
                 <td>{{issue.DueDate | date : 'dd MMMM yyyy'}}</td>
             </tr>
             </tbody>
         </table>
-    </div>
+    </div>-->
 </div>

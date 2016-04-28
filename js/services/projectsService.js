@@ -1,17 +1,30 @@
 'use strict';
 
-angular.module('issueSystem.projects.service', [])
-    .factory('', [
-        '',
-        function () {
-            function getProjectById(projectId) {
-                var deferred = $q.defer();
+angular.module('issueSystem.projects.projectsService', [])
+    .factory('projectsService', [
+        '$http',
+        '$q',
+        'BASE_URL',
+        'authentication',
+        function ($http, $q, BASE_URL, authentication) {
 
-                $http.get(BASE_URL + 'projects/' + projectId)
+
+            function getProjectById(projectId) {
+                var deferred = $q.defer(),
+                    headers = authentication.getAuthHeaders(),
+                    request = {
+                        method: 'GET',
+                        url: BASE_URL + 'projects/' + projectId,
+                        headers: {
+                            'Authorization': headers
+                        }
+                    };
+
+                $http(request)
                     .then(function (project) {
-                        deferred.resolve(project);
-                    }, function (err) {
-                        deferred.reject(err);
+                        deferred.resolve(project.data);
+                    }, function (error) {
+                        deferred.reject(error.data);
                     });
 
                 return deferred.promise;
