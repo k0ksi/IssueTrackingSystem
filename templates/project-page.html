@@ -46,7 +46,7 @@
                 <td class="col-md-2">{{issue.DueDate | date : 'dd MMMM yyyy'}}</td>
                 <td class="col-md-2">{{issue.Assignee.Username}}</td>
             </tr>
-            <tr ng-show="issuesNone ? issuesNone : true">
+            <tr ng-show="issuesNone">
                 <td class="no-issues" colspan="4">No issues</td>
             </tr>
             </tbody>

@@ -19,10 +19,7 @@ angular.module('issueSystem.projects', [
                 projectsService.getProjectById(id)
                     .then(function (projectData) {
                         getIssuesForProject($routeParams.id);
-                        usersService.getAllUsers()
-                            .then(function (users) {
-                                $scope.users = users
-                            });
+                        getAllUsers();
                         $scope.isCurrentUserProjectLead = projectData.Lead.Id === authentication.getUserId();
                         $scope.projectData = projectData;
                     }, function (err) {
@@ -35,8 +32,6 @@ angular.module('issueSystem.projects', [
                     .then(function (issues) {
                         $scope.projectData.issues = issues.data;
                         $scope.issuesNone = issues.data.length === 0;
-                    }, function (err) {
-                        notifyService.showError('Cannot load issues for this particular project', err);
                     });
             }
 
@@ -61,7 +56,10 @@ angular.module('issueSystem.projects', [
             };
 
             function getAllUsers() {
-
+                usersService.getAllUsers()
+                    .then(function (users) {
+                        $scope.users = users
+                    });
             }
 
             getProjectById($routeParams.id);

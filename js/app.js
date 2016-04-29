@@ -35,6 +35,11 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'ProjectsController'
     });
 
+    $routeProvider.when('/projects/:id/add-issue', {
+        templateUrl: 'templates/Add-issue.html',
+        controller: 'IssuesController'
+    });
+
     $routeProvider.when('/', {
         templateUrl: 'templates/home.html',
         controller: 'HomeController'

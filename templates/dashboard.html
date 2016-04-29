@@ -7,6 +7,7 @@
 	<div class="no-bullets" ng-repeat="project in userAffiliatedProjects">
 		<li class="margin-bottom-5"><a href="#/projects/{{project.Id}}">{{project.Name}}</a></li>
 	</div>
+	<div ng-show="userAffiliatedProjects.length === 0">No projects</div>
 </div>
 <div class="inline issues-list right">
 	<table class="table table-striped">
@@ -25,7 +26,7 @@
 			<td><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
 			<td>{{issue.DueDate | date : 'dd MMMM yyyy'}}</td>
 		</tr>
-		<tr ng-show="issuesNone ? issuesNone : true">
+		<tr ng-show="issuesNone">
 			<td class="no-issues" colspan="4">No issues</td>
 		</tr>
 		</tbody>

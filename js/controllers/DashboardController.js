@@ -11,9 +11,10 @@ angular.module('issueSystem.dashboard', [
     }])
     .controller('DashboardController', [
         '$scope',
+        '$rootScope',
         'myDashboard',
         'authentication',
-        function ($scope, myDashboard, authentication) {
+        function ($scope, $rootScope, myDashboard, authentication) {
             $scope.issuesParams = {
                 'pageNumber' : 1,
                 'pageSize' : 3,
@@ -23,7 +24,9 @@ angular.module('issueSystem.dashboard', [
             var affiliatedProjects = [],
                 projectIds = {},
                 currentUserId = authentication.getUserId(),
-                currentUserEmail = authentication.getUserEmail();
+                userEmail = authentication.getUserEmail();
+
+            $rootScope.username = userEmail;
 
             if(!$scope.issues) {
                 getLatestIssues();
@@ -34,8 +37,7 @@ angular.module('issueSystem.dashboard', [
                     $scope.issuesParams,
                     function success(data) {
                         $scope.issues = data;
-                        $scope.issuesNone = data.length === 0;
-                        $scope.username = currentUserEmail;
+                        $scope.issuesNone = data.Issues.length === 0;
                         var issuesLength = data.Issues.length;
                         for (var i = 0; i < issuesLength; i++) {
                             var issue = data.Issues[i];

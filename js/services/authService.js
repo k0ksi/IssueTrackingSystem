@@ -112,6 +112,7 @@ angular.module('issueSystem.users.authentication', [])
                 getAuthHeaders: getAuthHeaders,
                 isAuthenticated: isAuthenticated,
                 refreshCookie: refreshCookie,
-                getUserId: getUserId
+                getUserId: getUserId,
+                getUserEmail: getUserEmail
             }
     }]);

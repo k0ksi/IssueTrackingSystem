@@ -1,4 +1,4 @@
-<div class="dashboard">
+<div ng-if="isCurrentUserProjectLead" class="dashboard">
   <a href="#/dashboard" class="btn btn-success">Dashboard</a>
   <a class="btn btn-success">Projects</a>
   <div class="alert alert-success info-panel" role="alert">Edit Project</div>
@@ -10,21 +10,20 @@
       <label class="bolded-item" for="description">Description </label>
       <input class="inline" id="description" ng-model="projectData.Description" />
       <br/>
-      <label class="inline bolded-item" for="lead-id">LeadId </label>
-      <select name="lead-id" id="lead-id"
+      <!--<select name="lead-id" id="lead-id"
         ng-options="user.Username for user in users track by user.Id"
         ng-model="projectData.Lead">
-        <!--<option ng-repeat="user in users" value="{{user.Id}}">{{user.Username}}</option>-->
-      </select>
-      <br/>
+      </select>-->
       <label class="bolded-item" for="priorities">Priorities (separated by comma) </label>
-      <input class="inline" name="priorities" id="priorities" value="{{joinProperties(projectData.Priorities)}}"/>
+      <input class="inline" name="priorities" id="priorities" value="{{joinProperties(projectData.Priorities)}}" readonly />
       <br/>
       <label class="bolded-item" for="labels">Labels (separated by comma) </label>
-      <input class="inline" name="labels" id="labels" value="{{joinProperties(projectData.Labels)}}"/>
+      <input class="inline" name="labels" id="labels" value="{{joinProperties(projectData.Labels)}}" readonly />
       <br/>
     </div>
   </div>
   <br/>
   <a ng-click="editProject(projectData)" class="btn btn-success">Edit Project</a>
 </div>
+
+<div ng-if="!isCurrentUserProjectLead" ng-init=""></div>
