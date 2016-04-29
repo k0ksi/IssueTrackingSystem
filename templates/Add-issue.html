@@ -24,14 +24,14 @@
             <select name="assignee-id" id="assignee-id"
                     ng-options="user.Id as user.Username for user in users track by user.Id"
                     ng-model="issueData.AssigneeId"
-                    default-select="{{projectData.Lead}}">
+                    default-select="{{projectData.Lead.Id}}">
             </select>
             <br/>
             <label class="bolded-item" for="priority-id">Priority</label>
             <select name="assignee-id" id="priority-id"
                 ng-options="priority.Id as priority.Name for priority in projectData.Priorities track by priority.Id"
                 ng-model="issueData.PriorityId"
-                default-select="{{projectData.Priorities[0]}}">
+                default-select="{{projectData.Priorities[0].Id}}">
             </select>
             <br/>
             <label class="bolded-item" for="due-date">Due Date</label>
