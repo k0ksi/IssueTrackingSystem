@@ -22,14 +22,16 @@
             <br/>
             <label class="bolded-item" for="assignee-id">Assignee</label>
             <select name="assignee-id" id="assignee-id"
-                    ng-options="user.Username for user in users track by user.Id"
-                    ng-model="projectData.Lead">
+                    ng-options="user.Id as user.Username for user in users track by user.Id"
+                    ng-model="issueData.AssigneeId"
+                    default-select="{{projectData.Lead}}">
             </select>
             <br/>
             <label class="bolded-item" for="priority-id">Priority</label>
             <select name="assignee-id" id="priority-id"
-                ng-options="priority.Name for priority in projectData.Priorities track by priority.Id"
-                ng-model="projectData.Priorities[0]">
+                ng-options="priority.Id as priority.Name for priority in projectData.Priorities track by priority.Id"
+                ng-model="issueData.PriorityId"
+                default-select="{{projectData.Priorities[0]}}">
             </select>
             <br/>
             <label class="bolded-item" for="due-date">Due Date</label>

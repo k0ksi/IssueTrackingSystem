@@ -6,17 +6,19 @@ angular.module('issueSystem.issues', [
     .controller('IssuesController', [
         '$scope',
         '$routeParams',
+        '$location',
         'issuesService',
         'authentication',
         'usersService',
         'projectsService',
-        function ($scope, $routeParams, issuesService, authentication, usersService, projectsService) {
+        'notifyService',
+        function ($scope, $routeParams, $location, issuesService, authentication, usersService, projectsService, notifyService) {
             var projectId = $routeParams.id,
                 userEmail = authentication.getUserEmail(),
                 userId = authentication.getUserId();
 
             $scope.issueData = {
-                ProjectId: projectId,
+                ProjectId: projectId
             };
 
             usersService.getAllUsers()
