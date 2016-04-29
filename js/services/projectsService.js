@@ -76,10 +76,28 @@ angular.module('issueSystem.projects.projectsService', [])
                 $http(request).success(success).error(error);
             }
 
+            function getProjects() {
+                var deferred = $q.defer(),
+                    request = {
+                        method: 'GET',
+                        url: BASE_URL + 'projects/'
+                    };
+
+                $http(request)
+                    .then(function (projects) {
+                        deferred.resolve(projects);
+                    }, function (error) {
+                        deferred.reject(error);
+                    });
+
+                return deferred.promise;
+            }
+
             return {
                 getProjectById: getProjectById,
                 getIssuesForProject: getIssuesForProject,
-                updateProject: updateProject
+                updateProject: updateProject,
+                getProjects: getProjects
             }
         }
     ]

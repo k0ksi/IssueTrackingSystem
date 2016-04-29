@@ -5,11 +5,16 @@ angular.module('issueSystem.issues', [
     ])
     .controller('IssuesController', [
         '$scope',
+        '$routeParams',
         'issuesService',
         'authentication',
         'usersService',
-        function ($scope, issuesService, authentication, usersService) {
-            var projectId = $routeParams.id;
+        'projectsService',
+        function ($scope, $routeParams, issuesService, authentication, usersService, projectsService) {
+            var projectId = $routeParams.id,
+                userEmail = authentication.getUserEmail(),
+                userId = authentication.getUserId();
+
             $scope.issueData = {
                 ProjectId: projectId,
             };
@@ -17,6 +22,22 @@ angular.module('issueSystem.issues', [
             usersService.getAllUsers()
                 .then(function (users) {
                     $scope.users = users
+                });
+
+            function getAllProjects() {
+                projectsService.getProjects()
+                    .then(function (projectData) {
+                        $scope.projects = projectData.data;
+                    }, function (err) {
+                        notifyService.showError('Cannot load all projects', err);
+                    });
+            }
+
+            projectsService.getProjectById(projectId)
+                .then(function (projectData) {
+                    $scope.projectData = projectData;
+                }, function (err) {
+                    notifyService.showError('Cannot load project', err);
                 });
 
             $scope.addIssue = function (issueData) {
@@ -27,6 +48,8 @@ angular.module('issueSystem.issues', [
                     }, function error(err) {
                         notifyService.showError("Couldn't create a new issue", err);
                     });
-            }
+            };
+
+            getAllProjects();
         }
     ]);

@@ -11,21 +11,27 @@
             <label class="bolded-item" for="description">Description </label>
             <input class="inline" id="description" ng-model="issueData.Description" />
             <br/>
-            <label for="assignee-id">Project</label>
-            <select name="project-id" id="project-id"
-                    ng-options="project.Title for project in projects track by project.Id"
-                    ng-model="issueData.ProjectId">
+            <label class="bolded-item" for="project-id">Project</label>
+            <select disabled id="project-id"><!--name="project-id" id="project-id"
+                    ng-options="project.Name for project in projects track by project.Id"
+                    ng-model="projectData.Title"-->
+                <option selected = selected>
+                    {{projectData.Name}}
+                </option>
             </select>
-            <label for="assignee-id">Assignee</label>
+            <br/>
+            <label class="bolded-item" for="assignee-id">Assignee</label>
             <select name="assignee-id" id="assignee-id"
-              ng-options="user.Username for user in users track by user.Id"
-              ng-model="issueData.AssigneeId">
+                    ng-options="user.Username for user in users track by user.Id"
+                    ng-model="projectData.Lead">
             </select>
+            <br/>
             <label class="bolded-item" for="priority-id">Priority</label>
             <select name="assignee-id" id="priority-id"
-                ng-options="priority.Name for priority in priorities track by priority.Id"
-                ng-model="issueData.PriorityId">
+                ng-options="priority.Name for priority in projectData.Priorities track by priority.Id"
+                ng-model="projectData.Priorities[0]">
             </select>
+            <br/>
             <label class="bolded-item" for="due-date">Due Date</label>
             <input class="inline" name="due-date" id="due-date" ng-model="issueData.DueDate" />
             <br/>

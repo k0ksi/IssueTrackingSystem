@@ -13,6 +13,7 @@ var app = angular.module('issueSystem', [
     'issueSystem.projects.projectsService',
     'issueSystem.projects',
     'issueSystem.users.usersService',
+    'issueSystem.issues',
     'issueSystem.issues.issuesService'
     ]);
 
