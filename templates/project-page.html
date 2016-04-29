@@ -5,7 +5,7 @@
     <div class="project-details inline">
         <p class="project-title inline">{{projectData.ProjectKey}}</p>
         <a href="#/projects/{{projectData.Id}}/edit" ng-if="isCurrentUserProjectLead" class="btn btn-success">Edit</a>
-        <a ng-if="isCurrentUserProjectLead" class="btn btn-success">Add Issue</a>
+        <a ng-if="isCurrentUserProjectLead" href="#/projects/{{projectData.Id}}/add-issue" class="btn btn-success">Add Issue</a>
         <div>
             <label for="project-key">Project key: </label>
             <p class="inline" id="project-key">{{projectData.ProjectKey}}</p>

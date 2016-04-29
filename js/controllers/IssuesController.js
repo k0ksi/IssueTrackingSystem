@@ -18,5 +18,15 @@ angular.module('issueSystem.issues', [
                 .then(function (users) {
                     $scope.users = users
                 });
+
+            $scope.addIssue = function (issueData) {
+                issuesService.createIssue(issueData,
+                    function success() {
+                        notifyService.showInfo("You have successfully posted a new issue");
+                        $location.path('/projects/' + projectId);
+                    }, function error(err) {
+                        notifyService.showError("Couldn't create a new issue", err);
+                    });
+            }
         }
-    ])
+    ]);
