@@ -16,7 +16,7 @@ var app = angular.module('issueSystem', [
     'issueSystem.issues',
     'issueSystem.issues.issuesService',
     'issueSystem.common.datepicker',
-    'issueSystem.common.dafaultSelect'
+    'issueSystem.common.defaultSelect'
     ]);
 
 app.constant('BASE_URL_API', 'http://softuni-issue-tracker.azurewebsites.net/api/');
