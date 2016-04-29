@@ -1,51 +1,55 @@
 <div class="dashboard">
-    <button class="btn btn-success">Dashboard</button>
-    <button class="btn btn-success">Projects</button>
+    <a href="#/dashboard" class="btn btn-success">Dashboard</a>
+    <a class="btn btn-success">Projects</a>
     <div class="alert alert-success info-panel" role="alert">Project Page</div>
     <div class="project-details inline">
         <p class="project-title inline">{{projectData.ProjectKey}}</p>
-        <button class="btn btn-success">Edit</button>
-        <button class="btn btn-success">Add Issue</button>
+        <a href="#/projects/{{projectData.Id}}/edit" ng-if="isCurrentUserProjectLead" class="btn btn-success">Edit</a>
+        <a ng-if="isCurrentUserProjectLead" class="btn btn-success">Add Issue</a>
         <div>
             <label for="project-key">Project key: </label>
             <p class="inline" id="project-key">{{projectData.ProjectKey}}</p>
             <br/>
             <label class="bolded-item" for="name">Name </label>
-            <input class="inline" id="name" value="{{projectData.Name}}"/>
+            <input class="inline" id="name" value="{{projectData.Name}}" readonly/>
             <br/>
             <label class="bolded-item" for="description">Description </label>
-            <input class="inline" id="description" value="{{projectData.Description}}"/>
+            <input class="inline" id="description" value="{{projectData.Description}}" readonly/>
             <br/>
             <label class="bolded-item" for="leadId">LeadId </label>
-            <p class="inline" id="leadId">(current id: {{projectData.Lead.Id}})</p>
-            <input class="inline" name="description" value="{{projectData.Lead.Username}}"/>
+            <input class="inline" name="description" value="{{projectData.Lead.Username}}" readonly/>
+            <br/>
+            <p class="inline" id="leadId">id: {{projectData.Lead.Id}}</p>
             <br/>
             <label class="bolded-item" for="labels">Labels: </label>
-            <p class="inline" id="labels">Label1, Label2</p>
+            <p class="inline" id="labels">{{joinProperties(projectData.Labels)}}</p>
             <br/>
             <label class="bolded-item" for="priorities">Priorities: </label>
-            <p class="inline" id="priorities">Low, Urgent</p>
+            <p class="inline" id="priorities">{{joinProperties(projectData.Priorities)}}</p>
             <br/>
         </div>
     </div>
-    <!--<div class="float-right issues-list inline">
+    <div class="float-right issues-list inline">
         <table class="table table-striped">
             <thead>
             <tr>
                 <td>Title</td>
                 <td>Description</td>
-                <td>Project</td>
                 <td>Due Date</td>
+                <td>Assignee</td>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="project in projects">
-                <td><a href="">{{project.Name}}</a></td>
-                <td>{{project.Description}}</td>
-                <td><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
-                <td>{{issue.DueDate | date : 'dd MMMM yyyy'}}</td>
+            <tr ng-repeat="issue in projectData.issues">
+                <td class="col-md-2"><a href="">{{issue.Title}}</a></td>
+                <td class="col-md-3">{{issue.Description.substring(0, 52)}}</td>
+                <td class="col-md-2">{{issue.DueDate | date : 'dd MMMM yyyy'}}</td>
+                <td class="col-md-2">{{issue.Assignee.Username}}</td>
+            </tr>
+            <tr ng-show="issuesNone ? issuesNone : true">
+                <td class="no-issues" colspan="4">No issues</td>
             </tr>
             </tbody>
         </table>
-    </div>-->
+    </div>
 </div>

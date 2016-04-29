@@ -4,14 +4,17 @@ angular.module('issueSystem.users.authentication', [])
     .factory('authentication', [
         '$http',
         '$cookies',
+        '$cookieStore',
+        '$window',
         '$q',
         '$location',
         'identity',
         'BASE_URL_API',
         'BASE_URL',
-        function($http, $cookies, $q, $location, identity, BASE_URL_API) {
+        function($http, $cookies, $cookieStore, $window, $q, $location, identity, BASE_URL_API) {
             var AUTHENTICATION_COOKIE_KEY = '!__Authentication_Cookie_Key_!',
-                ID_KEY = '!__Id_Cookie_Key_!';
+                ID_KEY = '!__Id_Cookie_Key_!',
+                EMAIL_KEY = '!__Username_!';
 
             function preserveUserData(data) {
                 var accessToken = data.access_token;
@@ -73,7 +76,11 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function logout() {
+                $window.localStorage.clear();
+                $window.sessionStorage.clear();
                 $cookies.remove(AUTHENTICATION_COOKIE_KEY);
+                $cookies.remove(ID_KEY);
+                $cookies.remove(EMAIL_KEY);
                 $http.defaults.headers.common.Authorization = undefined;
                 identity.removeUserProfile();
                 $location.path('/');
@@ -92,6 +99,10 @@ angular.module('issueSystem.users.authentication', [])
 
             function getUserId() {
                 return atob($cookies.get(ID_KEY));
+            }
+
+            function getUserEmail() {
+                return atob($cookies.get(EMAIL_KEY));
             }
 
             return {

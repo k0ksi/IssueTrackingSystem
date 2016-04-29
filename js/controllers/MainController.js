@@ -3,20 +3,23 @@
 angular.module('issueSystem.common', [])
     .controller('MainController', [
         '$scope',
+        '$rootScope',
         '$location',
         'identity',
         'authentication',
         'notifyService',
-        function($scope, $location, identity, authentication, notifyService) {
+        function($scope, $rootScope, $location, identity, authentication, notifyService) {
             identity.getCurrentUser()
                 .then(function(user) {
                     $scope.currentUser = user;
-                    $scope.isAuthenticated = true;
+                    $rootScope.isAuthenticated = authentication.isAuthenticated();
                 });
 
             $scope.logout = function () {
+                $scope = $scope.$new(true);
                 authentication.logout();
+                $rootScope.isAuthenticated = authentication.isAuthenticated();
                 notifyService.showInfo('You have successfully logged out!');
-                $location.path('/')
+                $location.path('/');
             };
         }]);

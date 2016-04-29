@@ -10,7 +10,8 @@ angular.module('issueSystem.users.identity', [])
         function ($http, $q, $cookies, BASE_URL_API, BASE_URL) {
             var deferred = $q.defer(),
                 currentUser = undefined,
-                ID_KEY = '!__Id_Cookie_Key_!';
+                ID_KEY = '!__Id_Cookie_Key_!',
+                EMAIL_KEY = '!__Username_!';
 
             function getCurrentUser() {
                 if(currentUser) {
@@ -31,6 +32,7 @@ angular.module('issueSystem.users.identity', [])
                     .then(function (response) {
                         currentUser = response.data;
                         $cookies.put(ID_KEY, btoa(response.data.Id));
+                        $cookies.put(EMAIL_KEY, btoa(response.data.Username));
                         deferred.resolve(currentUser);
                         userProfileDeferred.resolve();
                     });

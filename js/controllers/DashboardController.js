@@ -22,13 +22,20 @@ angular.module('issueSystem.dashboard', [
 
             var affiliatedProjects = [],
                 projectIds = {},
-                currentUserId = authentication.getUserId();
+                currentUserId = authentication.getUserId(),
+                currentUserEmail = authentication.getUserEmail();
 
-            $scope.reloadIssues = function () {
+            if(!$scope.issues) {
+                getLatestIssues();
+            }
+
+            function getLatestIssues() {
                 myDashboard.getLatestIssues(
                     $scope.issuesParams,
                     function success(data) {
                         $scope.issues = data;
+                        $scope.issuesNone = data.length === 0;
+                        $scope.username = currentUserEmail;
                         var issuesLength = data.Issues.length;
                         for (var i = 0; i < issuesLength; i++) {
                             var issue = data.Issues[i];
@@ -38,12 +45,14 @@ angular.module('issueSystem.dashboard', [
                             }
                         }
                     });
-            };
+            }
+
+            $scope.reloadIssues = getLatestIssues;
 
             $scope.reloadIssues();
 
-            myDashboard.getAllIssues()
-                .then(function (allIssues) {
+            /*myDashboard.getAllIssues(
+                function success(allIssues) {
                     var issuesLength = allIssues.Issues.length;
                     for (var i = 0; i < issuesLength; i++) {
                         var issue = allIssues.Issues[i];
@@ -52,7 +61,8 @@ angular.module('issueSystem.dashboard', [
                             projectIds[issue.Project.Id] = issue.Project.Id;
                         }
                     }
-                });
+                }
+            );*/
 
             myDashboard.getProjectsWithCurrentUserAsLead(currentUserId)
                 .then(function (myProjects) {

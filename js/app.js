@@ -11,7 +11,8 @@ var app = angular.module('issueSystem', [
     'issueSystem.dashboard',
     'issueSystem.dashboard.myDashboard',
     'issueSystem.projects.projectsService',
-    'issueSystem.projects'
+    'issueSystem.projects',
+    'issueSystem.users.usersService'
     ]);
 
 app.constant('BASE_URL_API', 'http://softuni-issue-tracker.azurewebsites.net/api/');
@@ -26,6 +27,11 @@ app.config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider.when('/projects/:id', {
         templateUrl: 'templates/project-page.html',
+        controller: 'ProjectsController'
+    });
+
+    $routeProvider.when('/projects/:id/edit', {
+        templateUrl: 'templates/Edit-project.html',
         controller: 'ProjectsController'
     });
 

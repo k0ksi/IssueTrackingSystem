@@ -16,34 +16,20 @@ angular.module('issueSystem.dashboard.myDashboard', [])
                 null,
                 {
                     'getLatestIssues': {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': headers
-                        }
+                        method: 'GET'
                     }
                 }
             );
 
-            function getLatestIssues() {
-                var headers = authentication.getAuthHeaders(),
-                    deferred = $q.defer(),
-                    request = {
-                        method: 'GET',
-                        url: BASE_URL + 'issues/me?orderBy=Project.Name desc, IssueKey&pageSize=100&pageNumber=1',
-                        headers: {
-                            'Authorization': headers
-                        }
-                    };
-
-                $http(request)
-                    .then(function (issues) {
-                        deferred.resolve(issues.data);
-                    }, function (error) {
-                        deferred.reject(error.data);
-                    });
-
-                return deferred.promise;
-            }
+            var latestIssues = $resource(
+                BASE_URL + 'issues/me?orderBy=Project.Name desc, IssueKey&pageSize=100&pageNumber=1',
+                null,
+                {
+                    'getLatestIssues': {
+                        method: 'GET'
+                    }
+                }
+            );
 
             function getProjectsWithCurrentUserAsLead(leadId) {
                 var headers = authentication.getAuthHeaders(),
@@ -71,6 +57,8 @@ angular.module('issueSystem.dashboard.myDashboard', [])
                     return issuesResource.getLatestIssues(params, success, error);
                 },
                 getProjectsWithCurrentUserAsLead: getProjectsWithCurrentUserAsLead,
-                getAllIssues: getLatestIssues
+                getAllIssues: function (success, error) {
+                    return latestIssues.getLatestIssues(success, error);
+                }
             }
         }]);

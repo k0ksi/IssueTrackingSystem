@@ -1,14 +1,14 @@
-<div class="dashboard jumbotron" style="height: 100%">
-<button class="btn btn-success">Dashboard</button>
-<button class="btn btn-success">Projects</button>
+<div class="dashboard dashboard" style="height: 100%">
+<a href="#/dashboard" class="btn btn-success">Dashboard</a>
+<a class="btn btn-success">Projects</a>
 <h1>Dashboard</h1>
 <div class="inline min">
-	<h3>Affiliated Projects</h3>
+	<p id="affiliated-title">Affiliated Projects</p>
 	<div class="no-bullets" ng-repeat="project in userAffiliatedProjects">
 		<li class="margin-bottom-5"><a href="#/projects/{{project.Id}}">{{project.Name}}</a></li>
 	</div>
 </div>
-<div class="inline right">
+<div class="inline issues-list right">
 	<table class="table table-striped">
 		<thead>
 		<tr>
@@ -24,6 +24,9 @@
 			<td>{{issue.Description}}</td>
 			<td><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
 			<td>{{issue.DueDate | date : 'dd MMMM yyyy'}}</td>
+		</tr>
+		<tr ng-show="issuesNone ? issuesNone : true">
+			<td class="no-issues" colspan="4">No issues</td>
 		</tr>
 		</tbody>
 	</table>

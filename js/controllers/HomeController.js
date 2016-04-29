@@ -11,10 +11,11 @@ angular.module('issueSystem.home', [
     }])
     .controller('HomeController', [
         '$scope',
+        '$rootScope',
         '$location',
         'authentication',
         'notifyService',
-        function ($scope, $location, authentication, notifyService) {
+        function ($scope, $rootScope, $location, authentication, notifyService) {
             if(authentication.isAuthenticated()) {
                 $location.path('/home');
             }
@@ -23,7 +24,7 @@ angular.module('issueSystem.home', [
                 authentication.loginUser(user)
                     .then(function () {
                         notifyService.showInfo('You have successfully logged in!');
-                        $scope.isAuthenticated = true;
+                        $rootScope.isAuthenticated = authentication.isAuthenticated();
                         $location.path('/dashboard');
                     }, function (err) {
                         notifyService.showError('You were unable to login. Check your credentials!', err.error);
@@ -34,7 +35,7 @@ angular.module('issueSystem.home', [
                 authentication.registerUser(user)
                     .then(function () {
                         notifyService.showInfo('You have successfully registered!');
-                        $scope.isAuthenticated = true;
+                        $rootScope.isAuthenticated = authentication.isAuthenticated();
                         $location.path('/dashboard');
                     }, function (err) {
                         notifyService.showError('You were unable to register! Check the length of your password.', err.error);
