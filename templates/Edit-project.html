@@ -3,12 +3,12 @@
   <a class="btn btn-success">Projects</a>
   <div class="alert alert-success info-panel" role="alert">Edit Project</div>
   <div class="inline">
-    <div>
+    <form name="editProjectForm">
       <label class="bolded-item" for="name">Name </label>
-      <input class="inline" id="name" ng-model="projectData.Name" />
+      <input class="inline" id="name" ng-model="projectData.Name" required="required" />
       <br/>
       <label class="bolded-item" for="description">Description </label>
-      <input class="inline" id="description" ng-model="projectData.Description" />
+      <input class="inline" id="description" ng-model="projectData.Description" required="required" />
       <br/>
       <label for="lead-id">Lead</label>
       <select disabled id="lead-id"><!--name="project-id" id="project-id"
@@ -29,8 +29,7 @@
       <label class="bolded-item" for="labels">Labels (separated by comma) </label>
       <input class="inline" name="labels" id="labels" value="{{joinProperties(projectData.Labels)}}" readonly />
       <br/>
-    </div>
+      <button ng-click="editProject(projectData)" class="btn btn-success">Edit Project</button>
+    </form>
   </div>
-  <br/>
-  <a ng-click="editProject(projectData)" class="btn btn-success">Edit Project</a>
 </div>
