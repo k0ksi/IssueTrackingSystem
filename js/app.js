@@ -44,6 +44,11 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'IssuesController'
     });
 
+    $routeProvider.when('/issues/:id', {
+        templateUrl: 'templates/issue-page.html',
+        controller: 'IssuesController'
+    });
+
     $routeProvider.when('/', {
         templateUrl: 'templates/home.html',
         controller: 'HomeController'
