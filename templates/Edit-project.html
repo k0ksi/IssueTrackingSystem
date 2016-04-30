@@ -10,6 +10,15 @@
       <label class="bolded-item" for="description">Description </label>
       <input class="inline" id="description" ng-model="projectData.Description" />
       <br/>
+      <label for="lead-id">Lead</label>
+      <select disabled id="lead-id"><!--name="project-id" id="project-id"
+                    ng-options="project.Name for project in projects track by project.Id"
+                    ng-model="projectData.Title"-->
+        <option selected = selected>
+          {{projectData.Lead.Username}}
+        </option>
+      </select>
+      <br/>
       <!--<select name="lead-id" id="lead-id"
         ng-options="user.Username for user in users track by user.Id"
         ng-model="projectData.Lead">
