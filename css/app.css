@@ -145,3 +145,22 @@ select {
     text-align: center;
     font-size: 16px;
 }
+
+@media screen and (max-width: 1200px) {
+    .right {
+        float: none;
+    }
+
+    .issues-list {
+        width: 100%;
+    }
+
+    .min {
+        min-height: 110px;
+    }
+
+    .no-bullets {
+        display: inline-block;
+        margin-right: 20px;
+    }
+}
