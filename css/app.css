@@ -3,6 +3,10 @@ body {
     background-color: rgb(219, 228, 241);
 }
 
+.home {
+    background-color: rgb(219, 228, 241);
+}
+
 input {
     margin-bottom: 10px;
 }
@@ -156,7 +160,7 @@ select {
     }
 
     .min {
-        min-height: 110px;
+        min-height: 105px;
     }
 
     .no-bullets {
