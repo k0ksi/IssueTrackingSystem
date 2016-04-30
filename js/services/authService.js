@@ -107,7 +107,9 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function isAdmin() {
-                return atob($cookies.get(IS_ADMIN_KEY));
+                var isAdmin = atob($cookies.get(IS_ADMIN_KEY)) === 'true';
+
+                return isAdmin;
             }
 
             return {

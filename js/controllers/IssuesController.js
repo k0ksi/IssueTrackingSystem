@@ -21,6 +21,8 @@ angular.module('issueSystem.issues', [
                 ProjectId: projectId
             };
 
+            $scope.isAdmin = authentication.isAdmin();
+
             usersService.getAllUsers()
                 .then(function (users) {
                     $scope.users = users

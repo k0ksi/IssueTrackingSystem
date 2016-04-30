@@ -27,6 +27,7 @@ angular.module('issueSystem.dashboard', [
                 userEmail = authentication.getUserEmail();
 
             $rootScope.username = userEmail;
+            $rootScope.isAdmin = authentication.isAdmin();
 
             if(!$scope.issues) {
                 getLatestIssues();

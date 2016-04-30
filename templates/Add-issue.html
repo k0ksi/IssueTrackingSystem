@@ -1,7 +1,7 @@
 <div class="dashboard">
     <a href="#/projects/{{issueData.ProjectId}}" class="btn btn-success">Go Back To Project</a>
     <a href="#/dashboard" class="btn btn-success">Dashboard</a>
-    <a class="btn btn-success">Projects</a>
+    <a ng-if="isAdmin" class="btn btn-success">Projects</a>
     <div class="alert alert-success info-panel" role="alert">Add Issue</div>
     <div class="inline">
         <form name="addIssueForm">

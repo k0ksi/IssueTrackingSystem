@@ -34,7 +34,7 @@ angular.module('issueSystem.users.identity', [])
                         currentUser = response.data;
                         $cookies.put(ID_KEY, btoa(response.data.Id));
                         $cookies.put(EMAIL_KEY, btoa(response.data.Username));
-                        $cookies.put(IS_ADMIN_KEY, btoa(response.data.IsAdmin));
+                        $cookies.put(IS_ADMIN_KEY, btoa(response.data.isAdmin));
                         deferred.resolve(currentUser);
                         userProfileDeferred.resolve();
                     });

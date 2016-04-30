@@ -14,6 +14,7 @@ angular.module('issueSystem.projects', [
         'usersService',
         function ($scope, projectsService, $routeParams, $location, authentication, notifyService, usersService) {
             $scope.projectData = {};
+            $scope.isAdmin = authentication.isAdmin();
 
             function getProjectById(id) {
                 projectsService.getProjectById(id)
