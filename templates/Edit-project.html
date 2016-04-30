@@ -29,7 +29,7 @@
       <label class="bolded-item" for="labels">Labels (separated by comma) </label>
       <input class="inline" name="labels" id="labels" value="{{joinProperties(projectData.Labels)}}" readonly />
       <br/>
-      <button ng-click="editProject(projectData)" class="btn btn-success">Edit Project</button>
+      <button ng-disabled="editProjectForm.$invalid" ng-click="editProject(projectData)" class="btn btn-success">Edit Project</button>
     </form>
   </div>
 </div>
