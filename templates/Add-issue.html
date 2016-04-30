@@ -24,17 +24,17 @@
             <select name="assignee-id" id="assignee-id"
                     ng-options="user.Id as user.Username for user in users track by user.Id"
                     ng-model="issueData.AssigneeId"
-                    default-select="">
+                    default-select="" required="required">
             </select>
             <br/>
             <label class="bolded-item" for="priority-id">Priority</label>
             <select name="priority-id" id="priority-id"
                 ng-options="priority.Id as priority.Name for priority in projectData.Priorities track by priority.Id"
                 ng-model="issueData.PriorityId"
-                default-select="">
+                default-select="" required="required">
             </select>
             <br/>
-            <label class="bolded-item" for="due-date">Due Date</label>
+            <label class="bolded-item" for="due-date" required="required">Due Date</label>
             <input class="inline" name="due-date" id="due-date" ng-model="issueData.DueDate" date-picker="" />
             <br/>
         </div>
