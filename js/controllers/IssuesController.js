@@ -40,6 +40,7 @@ angular.module('issueSystem.issues', [
             projectsService.getProjectById(projectId)
                 .then(function (projectData) {
                     $scope.projectData = projectData;
+                    $scope.isCurrentUserProjectLead = projectData.Lead.Id === authentication.getUserId();
                 }, function (err) {
                     notifyService.showError('Cannot load project', err);
                 });
