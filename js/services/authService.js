@@ -14,7 +14,8 @@ angular.module('issueSystem.users.authentication', [])
         function($http, $cookies, $cookieStore, $window, $q, $location, identity, BASE_URL_API) {
             var AUTHENTICATION_COOKIE_KEY = '!__Authentication_Cookie_Key_!',
                 ID_KEY = '!__Id_Cookie_Key_!',
-                EMAIL_KEY = '!__Username_!';
+                EMAIL_KEY = '!__Username_!',
+                IS_ADMIN_KEY = '!__IsAdmin_!';
 
             function preserveUserData(data) {
                 var accessToken = data.access_token;
@@ -105,6 +106,10 @@ angular.module('issueSystem.users.authentication', [])
                 return atob($cookies.get(EMAIL_KEY));
             }
 
+            function isAdmin() {
+                return atob($cookies.get(IS_ADMIN_KEY));
+            }
+
             return {
                 registerUser: registerUser,
                 loginUser: loginUser,
@@ -113,6 +118,7 @@ angular.module('issueSystem.users.authentication', [])
                 isAuthenticated: isAuthenticated,
                 refreshCookie: refreshCookie,
                 getUserId: getUserId,
-                getUserEmail: getUserEmail
+                getUserEmail: getUserEmail,
+                isAdmin: isAdmin
             }
     }]);

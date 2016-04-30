@@ -11,7 +11,8 @@ angular.module('issueSystem.users.identity', [])
             var deferred = $q.defer(),
                 currentUser = undefined,
                 ID_KEY = '!__Id_Cookie_Key_!',
-                EMAIL_KEY = '!__Username_!';
+                EMAIL_KEY = '!__Username_!',
+                IS_ADMIN_KEY = '!__IsAdmin_!';
 
             function getCurrentUser() {
                 if(currentUser) {
@@ -33,6 +34,7 @@ angular.module('issueSystem.users.identity', [])
                         currentUser = response.data;
                         $cookies.put(ID_KEY, btoa(response.data.Id));
                         $cookies.put(EMAIL_KEY, btoa(response.data.Username));
+                        $cookies.put(IS_ADMIN_KEY, btoa(response.data.IsAdmin));
                         deferred.resolve(currentUser);
                         userProfileDeferred.resolve();
                     });
