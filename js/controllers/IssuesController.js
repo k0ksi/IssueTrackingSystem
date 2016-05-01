@@ -46,13 +46,7 @@ angular.module('issueSystem.issues', [
             }
 
             if(projectId){
-                projectsService.getProjectById(projectId)
-                    .then(function (projectData) {
-                        $scope.projectData = projectData;
-                        $scope.isCurrentUserProjectLead = projectData.Lead.Id === authentication.getUserId();
-                    }, function (err) {
-                        notifyService.showError('Cannot load project', err);
-                    });
+                getProjectDetailsById(projectId);
             }
 
             if(issueId) {
@@ -60,8 +54,9 @@ angular.module('issueSystem.issues', [
 
                 issuesService.getIssueById(issueId)
                     .then(function (issueData) {
+                        getProjectDetailsById(issueData.Project.Id);
                         $scope.issueData = issueData;
-                        $scope.isCurrentUserProjectLead = issueData.Author.Id === authentication.getUserId();
+                        $scope.isCurrentUserIssueAuthor = issueData.Author.Id === authentication.getUserId();
                     }, function (err) {
                         notifyService.showError('Cannot load issue', err);
                     });
@@ -104,6 +99,17 @@ angular.module('issueSystem.issues', [
                     return result;
                 }
             };
+
+            function getProjectDetailsById(projectId) {
+                projectsService.getProjectById(projectId)
+                    .then(function (projectData) {
+                        $scope.projectData = projectData;
+                        $scope.priorities = projectData.Priorities;
+                        $scope.isCurrentUserProjectLead = projectData.Lead.Id === authentication.getUserId();
+                    }, function (err) {
+                        notifyService.showError('Cannot load project', err);
+                    });
+            }
 
             if(projectId) {
                 getAllProjects();

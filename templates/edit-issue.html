@@ -1,4 +1,4 @@
-<div ng-if="isCurrentUserProjectLead" class="dashboard">
+<div ng-if="isCurrentUserIssueAuthor" class="dashboard">
     <a href="#/issues/{{issueData.Id}}" class="btn btn-success">Go Back To Issue</a>
     <a href="#/dashboard" class="btn btn-success">Dashboard</a>
     <a ng-if="isAdmin" class="btn btn-success">Projects</a>
@@ -7,13 +7,13 @@
         <p class="project-title inline bolded-item">123adfj</p>
         <form name="editIssueForm">
             <label for="title" class="bolded-item">Title </label>
-            <input class="inline" id="title" value="{{issueData.Title}}"/>
+            <input class="inline" id="title" value="{{issueData.Title}}" required="required"/>
             <br/>
             <label class="bolded-item" for="description">Description </label>
-            <input class="inline" id="description" value="{{issueData.Description}}"/>
+            <input class="inline" id="description" value="{{issueData.Description}}" required="required"/>
             <br/>
             <label class="bolded-item" for="project-id">Project</label>
-            <select disabled id="project-id"><!--name="project-id" id="project-id"
+            <select disabled id="project-id" required="required"><!--name="project-id" id="project-id"
                     ng-options="project.Name for project in projects track by project.Id"
                     ng-model="projectData.Title"-->
                 <option selected = selected>
@@ -21,23 +21,30 @@
                 </option>
             </select>
             </br>
-            <label class="bolded-item" for="leadId">Assignee </label>
-            <p class="inline" id="leadId">(current id: {{issueData.Assignee.Id}})</p>
-            <input class="inline" name="description" value="{{issueData.Assignee.Username}}" readonly/>
+            <label class="bolded-item" for="assignee-id">Assignee</label>
+            <select name="assignee-id" id="assignee-id"
+                    ng-options="user.Id as user.Username for user in users track by user.Id"
+                    ng-model="issueData.AssigneeId"
+                    default-select="" required="required">
+            </select>
             <br/>
-            <label class="bolded-item" for="priority">Priority </label>
-            <p class="inline" id="priority">(current id: {{issueData.Priority.Id}})</p>
-            <input class="inline" name="priority" value="{{issueData.Priority.Name}}" readonly/>
+            <label class="bolded-item" for="priority-id">Priority</label>
+            <select name="priority-id" id="priority-id"
+                    ng-options="priority.Id as priority.Name for priority in priorities track by priority.Id"
+                    ng-model="issueData.PriorityId"
+                    default-select="" required="required">
+            </select>
             <br/>
             <label class="bolded-item" for="dueDate">DueDate </label>
-            <input class="inline" name="priority" value="{{issueData.DueDate | date : 'dd MMMM yyyy'}}" id="dueDate" date-picker=""/>
+            <input class="inline" name="priority" value="{{issueData.DueDate | date : 'dd MMMM yyyy'}}" id="dueDate" required="required" date-picker=""/>
             <br/>
-            <label class="inline" for="labels">Labels: </label>
+            <label class="inline bolded-item" for="labels">Labels: </label>
             <p class="issue-paragraph inline" id="labels">{{joinProperties(issueData.Labels)}}</p>
             </br/>
             <label class="inline" for="status">Status: </label>
             <p class="issue-paragraph inline" id="status">{{issueData.Status.Name}}</p>
-            <button ng-disabled="editIssue.$invalid" ng-click="editIssue(issueData)" class="btn btn-success">Edit Issue</button>
+            <br/>
+            <button ng-disabled="editIssueForm.$invalid" ng-click="editIssue(issueData)" class="btn btn-success">Edit Issue</button>
         </form>
     </div>
     <div class="issue-statuses inline right">
