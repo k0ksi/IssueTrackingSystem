@@ -12,6 +12,7 @@ var app = angular.module('issueSystem', [
     'issueSystem.dashboard.myDashboard',
     'issueSystem.projects.projectsService',
     'issueSystem.projects',
+    'issueSystem.users',
     'issueSystem.users.usersService',
     'issueSystem.issues',
     'issueSystem.issues.issuesService',
