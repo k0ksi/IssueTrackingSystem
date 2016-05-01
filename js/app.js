@@ -54,6 +54,11 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'IssuesController'
     });
 
+    $routeProvider.when('/profile/password', {
+        templateUrl: 'templates/change-password.html',
+        controller: 'UsersController'
+    });
+
     $routeProvider.when('/', {
         templateUrl: 'templates/home.html',
         controller: 'HomeController'
@@ -69,13 +74,10 @@ app.run(function ($rootScope, $location, authentication) {
     $rootScope.$on('$locationChangeStart', function () {
         if(($location.path().indexOf("/home") != -1 ||
            $location.path().indexOf("/projects") != -1 ||
-           $location.path().indexOf("/issues") != -1) &&
+           $location.path().indexOf("/issues") != -1 ||
+           $location.path().indexOf("/profile") != -1) &&
            !authentication.isAuthenticated()) {
             $location.path('/');
         }
-
-        /*if($location.path().indexOf("/") != -1 && authentication.isAuthenticated()) {
-            $location.path('/home');
-        }*/
     });
 });
