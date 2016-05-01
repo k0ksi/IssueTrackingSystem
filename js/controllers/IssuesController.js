@@ -61,6 +61,7 @@ angular.module('issueSystem.issues', [
                 issuesService.getIssueById(issueId)
                     .then(function (issueData) {
                         $scope.issueData = issueData;
+                        $scope.isCurrentUserProjectLead = issueData.Author.Id === authentication.getUserId();
                     }, function (err) {
                         notifyService.showError('Cannot load issue', err);
                     });
