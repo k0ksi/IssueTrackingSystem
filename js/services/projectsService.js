@@ -15,24 +15,6 @@ angular.module('issueSystem.projects.projectsService', [])
 
                 $http(request)
                     .then(function (project) {
-                        var priorities = project.data.Priorities.map(function(elem){
-                            return elem.Name
-                        }).join(", ");
-
-                        var labels = project.data.Labels.map(function(elem){
-                            return elem.Name
-                        }).join(", ");
-
-                        var projectData = {
-                            'Id': project.data.Id,
-                            'Title': project.data.Name,
-                            'ProjectKey': project.data.ProjectKey,
-                            'Description': project.data.Description,
-                            'LeadId': project.data.Lead.Id,
-                            'LeadEmail': project.data.Lead.Username,
-                            'Labels': labels ? labels : "-",
-                            'Priorities': priorities ? priorities : "-"
-                        };
                         deferred.resolve(project.data);
                     }, function (error) {
                         deferred.reject(error.data);

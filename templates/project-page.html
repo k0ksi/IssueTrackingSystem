@@ -41,7 +41,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="issue in projectData.issues">
-                <td class="col-md-2"><a href="">{{issue.Title}}</a></td>
+                <td class="col-md-2"><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
                 <td class="col-md-3">{{issue.Description.substring(0, 52)}}</td>
                 <td class="col-md-2">{{issue.DueDate | date : 'dd MMMM yyyy'}}</td>
                 <td class="col-md-2">{{issue.Assignee.Username}}</td>

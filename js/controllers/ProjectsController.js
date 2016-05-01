@@ -6,13 +6,14 @@ angular.module('issueSystem.projects', [
     ])
     .controller('ProjectsController', [
         '$scope',
+        '$route',
         'projectsService',
         '$routeParams',
         '$location',
         'authentication',
         'notifyService',
         'usersService',
-        function ($scope, projectsService, $routeParams, $location, authentication, notifyService, usersService) {
+        function ($scope, $route, projectsService, $routeParams, $location, authentication, notifyService, usersService) {
             $scope.projectData = {};
             $scope.isAdmin = authentication.isAdmin();
 

@@ -12,9 +12,10 @@ angular.module('issueSystem.dashboard', [
     .controller('DashboardController', [
         '$scope',
         '$rootScope',
+        '$route',
         'myDashboard',
         'authentication',
-        function ($scope, $rootScope, myDashboard, authentication) {
+        function ($scope, $rootScope, $route, myDashboard, authentication) {
             $scope.issuesParams = {
                 'pageNumber' : 1,
                 'pageSize' : 3,

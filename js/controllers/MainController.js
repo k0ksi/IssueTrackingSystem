@@ -4,11 +4,12 @@ angular.module('issueSystem.common', [])
     .controller('MainController', [
         '$scope',
         '$rootScope',
+        '$route',
         '$location',
         'identity',
         'authentication',
         'notifyService',
-        function($scope, $rootScope, $location, identity, authentication, notifyService) {
+        function($scope, $rootScope, $route, $location, identity, authentication, notifyService) {
             identity.getCurrentUser()
                 .then(function(user) {
                     $scope.currentUser = user;

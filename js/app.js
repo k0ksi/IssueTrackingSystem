@@ -49,6 +49,9 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'IssuesController'
     });
 
+    $routeProvider.when('/issues/:id/edit', {
+    })
+
     $routeProvider.when('/', {
         templateUrl: 'templates/home.html',
         controller: 'HomeController'
@@ -63,7 +66,8 @@ app.run(function ($rootScope, $location, authentication) {
     authentication.refreshCookie();
     $rootScope.$on('$locationChangeStart', function () {
         if(($location.path().indexOf("/home") != -1 ||
-           $location.path().indexOf("/projects") != -1) &&
+           $location.path().indexOf("/projects") != -1 ||
+           $location.path().indexOf("/issues") != -1) &&
            !authentication.isAuthenticated()) {
             $location.path('/');
         }

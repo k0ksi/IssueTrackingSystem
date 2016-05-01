@@ -12,10 +12,11 @@ angular.module('issueSystem.home', [
     .controller('HomeController', [
         '$scope',
         '$rootScope',
+        '$route',
         '$location',
         'authentication',
         'notifyService',
-        function ($scope, $rootScope, $location, authentication, notifyService) {
+        function ($scope, $rootScope, $route, $location, authentication, notifyService) {
             if(authentication.isAuthenticated()) {
                 $location.path('/home');
             }

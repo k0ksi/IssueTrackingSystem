@@ -4,51 +4,54 @@
     <div class="alert alert-success info-panel" role="alert">Issue Page</div>
     <div class="inline">
         <p class="project-title inline bolded-item">123adfj</p>
-        <a href="#/issues/{{issueData.Id}}/edit" ng-if="true" class="btn btn-success">Edit</a>
+        <a ng-if="currentUserId === issueData.Author.Id" href="#/issues/{{issueData.Id}}/edit" class="btn btn-success">Edit</a>
         <div>
             <label for="title" class="bolded-item">Title </label>
-            <input class="inline" id="title" value="problem4" readonly/>
+            <input class="inline" id="title" value="{{issueData.Title}}" readonly/>
             <br/>
             <label class="bolded-item" for="description">Description </label>
-            <input class="inline" id="description" value="super" readonly/>
+            <input class="inline" id="description" value="{{issueData.Description}}" readonly/>
             <br/>
             <label class="bolded-item" for="leadId">Assignee </label>
-            <p class="inline" id="leadId">(current id: dsaadsaskd)</p>
-            <input class="inline" name="description" value="admin@softuni.bg" readonly/>
+            <p class="inline" id="leadId">(current id: {{issueData.Assignee.Id}})</p>
+            <input class="inline" name="description" value="{{issueData.Assignee.Username}}" readonly/>
             <br/>
             <label class="bolded-item" for="priority">Priority </label>
-            <p class="inline" id="priority">(current id: 1)</p>
-            <input class="inline" name="priority" value="Low" readonly/>
+            <p class="inline" id="priority">(current id: {{issueData.Priority.Id}})</p>
+            <input class="inline" name="priority" value="{{issueData.Priority.Name}}" readonly/>
             <br/>
             <label class="bolded-item" for="dueDate">DueDate </label>
-            <input class="inline" name="priority" value="2016-05-23T00:00:00" id="dueDate" readonly/>
+            <input class="inline" name="priority" value="{{issueData.DueDate | date : 'dd MMMM yyyy'}}" id="dueDate" readonly/>
             <br/>
             <label class="inline" for="author">Author: </label>
-            <p class="issue-paragraph inline" id="author">admin@softuni.bg</p>
+            <p class="issue-paragraph inline" id="author">{{issueData.Author.Username}}</p>
             <br/>
             <label class="inline" for="project">Project: </label>
-            <p class="issue-paragraph inline" id="project">entirely new project</p>
+            <p class="issue-paragraph inline" id="project">{{issueData.Project.Name}}</p>
             <br/>
             <label class="inline" for="status">Status: </label>
-            <p class="issue-paragraph inline" id="status">Open</p>
+            <p class="issue-paragraph inline" id="status">{{issueData.Status.Name}}</p>
             <br/>
             <label class="inline" for="labels">Labels: </label>
-            <p class="issue-paragraph inline" id="labels"></p>
+            <p class="issue-paragraph inline" id="labels">{{joinProperties(issueData.Labels)}}</p>
         </div>
     </div>
     <div class="issue-statuses inline right">
         <p class="issue-paragraph">Available statuses:</p>
-        <p class="inline">-----Closed</p>
-        <button class="btn btn-success inline">Change</button>
-        <br/>
-        <p class="inline">-----InProgress</p>
-        <button class="btn btn-success inline">Change</button>
+        <p ng-if="issueData.AvailableStatuses.length === 0">None</p>
+        <div ng-repeat="status in issueData.AvailableStatuses">
+            <p class="inline">-----{{status.Name}}</p>
+            <button ng-if="currentUserId === issueData.Assignee.Id" ng-click="changeIssuesStatus(issueData.Id, status.Id)" class="btn btn-success inline">
+                Change
+            </button>
+        </div>
     </div>
     <hr>
-    <div>
-        <div class="alert alert-success comment-author" role="alert">admin@softuni.bg - 2016-04-11</div>
-        <div class="comment-text">spammm</div>
+    <div ng-repeat="comment in comments">
+        <div class="alert alert-success comment-author" role="alert">{{comment.Author.Username}} - {{comment.CreatedOn | date : 'dd MMMM yyyy'}}</div>
+        <div class="comment-text">{{comment.Text}}</div>
     </div>
+    <div ng-if="commentsNone">No comments</div>
     <form class="form-group">
         <label for="comment-text" class="bolded-item margin-top-15">Text: </label>
         <br/>
