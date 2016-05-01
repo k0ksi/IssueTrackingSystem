@@ -52,10 +52,10 @@
         <div class="comment-text">{{comment.Text}}</div>
     </div>
     <div ng-if="commentsNone">No comments</div>
-    <form class="form-group">
+    <form name="addCommentForm" ng-if="isCurrentUserProjectLead || currentUserId === issueData.Assignee.Id" class="form-group">
         <label for="comment-text" class="bolded-item margin-top-15">Text: </label>
         <br/>
-        <textarea id="comment-text" class="form-control"></textarea>
-        <button class="btn btn-success">Add Comment</button>
+        <textarea required="required" ng-model="comment.Text" id="comment-text" class="form-control"></textarea>
+        <button ng-disabled="addCommentForm.$invalid" ng-click="addComment(comment)" class="btn btn-success">Add Comment</button>
     </form>
 </div>

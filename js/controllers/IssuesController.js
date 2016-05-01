@@ -13,7 +13,8 @@ angular.module('issueSystem.issues', [
         'usersService',
         'projectsService',
         'notifyService',
-        function ($scope, $route, $routeParams, $location, issuesService, authentication, usersService, projectsService, notifyService) {
+        'commentsService',
+        function ($scope, $route, $routeParams, $location, issuesService, authentication, usersService, projectsService, notifyService, commentsService) {
             var projectId,
                 issueId,
                 userEmail = authentication.getUserEmail(),
@@ -87,6 +88,15 @@ angular.module('issueSystem.issues', [
                             $route.reload();
                         }, function error(err) {
                             notifyService.showError('Editing the issue failed', err);
+                        })
+                };
+
+                $scope.addComment = function (comment) {
+                    commentsService.addComment(comment,
+                        function success() {
+                            notifyService.showInfo('You have successfully added a new comment');
+                        }, function error(err) {
+                            notifyService.showError('Adding your comment failed', err);
                         })
                 };
             }
