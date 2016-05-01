@@ -50,7 +50,9 @@ app.config(['$routeProvider', function ($routeProvider) {
     });
 
     $routeProvider.when('/issues/:id/edit', {
-    })
+        templateUrl: 'templates/edit-issue.html',
+        controller: 'IssuesController'
+    });
 
     $routeProvider.when('/', {
         templateUrl: 'templates/home.html',
