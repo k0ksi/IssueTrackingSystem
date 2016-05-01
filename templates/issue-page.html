@@ -2,7 +2,7 @@
     <a href="#/dashboard" class="btn btn-success">Dashboard</a>
     <a ng-if="isAdmin" class="btn btn-success">Projects</a>
     <div class="alert alert-success info-panel" role="alert">Issue Page</div>
-    <div class="project-details inline">
+    <div class="inline">
         <p class="project-title inline bolded-item">123adfj</p>
         <a href="#/issues/{{issueData.Id}}/edit" ng-if="true" class="btn btn-success">Edit</a>
         <div>
@@ -23,36 +23,36 @@
             <label class="bolded-item" for="dueDate">DueDate </label>
             <input class="inline" name="priority" value="2016-05-23T00:00:00" id="dueDate" readonly/>
             <br/>
-            <label for="author">Author: </label>
-            <p id="author">admin@softuni.bg</p>
+            <label class="inline" for="author">Author: </label>
+            <p class="issue-paragraph inline" id="author">admin@softuni.bg</p>
             <br/>
-            <label for="project">Project: </label>
-            <p id="project">entirely new project</p>
+            <label class="inline" for="project">Project: </label>
+            <p class="issue-paragraph inline" id="project">entirely new project</p>
             <br/>
-            <label for="status">Status: </label>
-            <p id="status">Open</p>
+            <label class="inline" for="status">Status: </label>
+            <p class="issue-paragraph inline" id="status">Open</p>
             <br/>
-            <label for="labels">Labels: </label>
-            <p id="labels"></p>
+            <label class="inline" for="labels">Labels: </label>
+            <p class="issue-paragraph inline" id="labels"></p>
         </div>
-        <div class="right">
-            <p>Available statuses:</p>
-            <br/>
-            <p>-----Closed</p>
-            <button class="btn btn-success">Change</button>
-            <br/>
-            <p>-----InProgress</p>
-            <button class="btn btn-success">Change</button>
-        </div>
+    </div>
+    <div class="issue-statuses inline right">
+        <p class="issue-paragraph">Available statuses:</p>
+        <p class="inline">-----Closed</p>
+        <button class="btn btn-success inline">Change</button>
+        <br/>
+        <p class="inline">-----InProgress</p>
+        <button class="btn btn-success inline">Change</button>
     </div>
     <hr>
     <div>
-        <div class="alert alert-success info-panel" role="alert">admin@softuni.bg - 2016-04-11</div>
+        <div class="alert alert-success comment-author" role="alert">admin@softuni.bg - 2016-04-11</div>
         <div class="comment-text">spammm</div>
     </div>
-    <form>
-        <label for="comment-text" class="bolded-item">Text: </label>
-        <textarea id="comment-text" class="form-group"></textarea>
+    <form class="form-group">
+        <label for="comment-text" class="bolded-item margin-top-15">Text: </label>
+        <br/>
+        <textarea id="comment-text" class="form-control"></textarea>
         <button class="btn btn-success">Add Comment</button>
     </form>
 </div>
