@@ -7,10 +7,12 @@ angular.module('issueSystem.issues.issuesService', [])
         'BASE_URL',
         function ($http, $q, BASE_URL) {
             function createIssue(issueData, success, error) {
+                var data = getIssueData(issueData);
+
                 var request = {
                     method: 'POST',
                     url: BASE_URL + 'issues/',
-                    data: issueData
+                    data: data
                 };
 
                 $http(request).success(success).error(error);
@@ -51,27 +53,7 @@ angular.module('issueSystem.issues.issuesService', [])
             }
 
             function updateIssue(issueData, success, error) {
-                var labelsArray = issueData.LabelNames.split(", ");
-                var labels = [];
-                var labelsArrayLength = labelsArray.length;
-                for (var i = 0; i < labelsArrayLength; i++) {
-                    var labelName = labelsArray[i];
-                    var label = {
-                        Name: labelName
-                    };
-
-                    labels.push(label);
-                }
-
-                var data = {
-                    Title: issueData.Title,
-                    Description: issueData.Description,
-                    DueDate: issueData.DueDate,
-                    ProjectId: issueData.ProjectId,
-                    AssigneeId: issueData.AssigneeId,
-                    PriorityId: issueData.PriorityId,
-                    Labels: labels
-                };
+                var data = getIssueData(issueData);
 
                 var request = {
                     method: 'PUT',
@@ -97,6 +79,32 @@ angular.module('issueSystem.issues.issuesService', [])
                     });
 
                 return deferred.promise;
+            }
+
+            function getIssueData(issueData) {
+                var labelsArray = issueData.LabelNames.split(", ");
+                var labels = [];
+                var labelsArrayLength = labelsArray.length;
+                for (var i = 0; i < labelsArrayLength; i++) {
+                    var labelName = labelsArray[i];
+                    var label = {
+                        Name: labelName
+                    };
+
+                    labels.push(label);
+                }
+
+                var data = {
+                    Title: issueData.Title,
+                    Description: issueData.Description,
+                    DueDate: issueData.DueDate,
+                    ProjectId: issueData.ProjectId,
+                    AssigneeId: issueData.AssigneeId,
+                    PriorityId: issueData.PriorityId,
+                    Labels: labels
+                };
+
+                return data;
             }
 
             return {
