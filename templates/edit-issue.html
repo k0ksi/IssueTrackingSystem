@@ -1,4 +1,4 @@
-<div ng-if="isCurrentUserIssueAuthor" class="dashboard">
+<div ng-if="isCurrentUserProjectLead || currentUserId === issueData.Assignee.Id" class="dashboard">
     <a href="#/issues/{{issueData.Id}}" class="btn btn-success">Go Back To Issue</a>
     <a href="#/dashboard" class="btn btn-success">Dashboard</a>
     <a ng-if="isAdmin" class="btn btn-success">Projects</a>
@@ -7,10 +7,10 @@
         <p class="project-title inline bolded-item">123adfj</p>
         <form name="editIssueForm">
             <label for="title" class="bolded-item">Title </label>
-            <input class="inline" id="title" value="{{issueData.Title}}" required="required"/>
+            <input ng-disabled="!isCurrentUserProjectLead" class="inline" id="title" ng-model="issueData.Title" required="required"/>
             <br/>
             <label class="bolded-item" for="description">Description </label>
-            <input class="inline" id="description" value="{{issueData.Description}}" required="required"/>
+            <input ng-disabled="!isCurrentUserProjectLead" class="inline" id="description" ng-model="issueData.Description" required="required"/>
             <br/>
             <label class="bolded-item" for="project-id">Project</label>
             <select disabled id="project-id" required="required"><!--name="project-id" id="project-id"
@@ -22,24 +22,24 @@
             </select>
             </br>
             <label class="bolded-item" for="assignee-id">Assignee</label>
-            <select name="assignee-id" id="assignee-id"
+            <select ng-disabled="!isCurrentUserProjectLead" name="assignee-id" id="assignee-id"
                     ng-options="user.Id as user.Username for user in users track by user.Id"
                     ng-model="issueData.AssigneeId"
                     default-select="" required="required">
             </select>
             <br/>
             <label class="bolded-item" for="priority-id">Priority</label>
-            <select name="priority-id" id="priority-id"
+            <select ng-disabled="!isCurrentUserProjectLead" name="priority-id" id="priority-id"
                     ng-options="priority.Id as priority.Name for priority in priorities track by priority.Id"
                     ng-model="issueData.PriorityId"
                     default-select="" required="required">
             </select>
             <br/>
             <label class="bolded-item" for="dueDate">DueDate </label>
-            <input class="inline" name="priority" value="{{issueData.DueDate | date : 'dd MMMM yyyy'}}" id="dueDate" required="required" date-picker=""/>
+            <input ng-disabled="!isCurrentUserProjectLead" class="inline" name="priority" ng-model="issueData.DueDate" id="dueDate" required="required" date-picker=""/>
             <br/>
             <label class="inline bolded-item" for="labels">Labels: </label>
-            <p class="issue-paragraph inline" id="labels">{{joinProperties(issueData.Labels)}}</p>
+            <input ng-disabled="!isCurrentUserProjectLead" id="labels" class="inline" ng-model="issueData.LabelNames" />
             </br/>
             <label class="inline" for="status">Status: </label>
             <p class="issue-paragraph inline" id="status">{{issueData.Status.Name}}</p>

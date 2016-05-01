@@ -50,13 +50,14 @@ angular.module('issueSystem.issues', [
             }
 
             if(issueId) {
-                $scope.currentUserId = userId;
+                $scope.currentUserId = authentication.getUserId();
 
                 issuesService.getIssueById(issueId)
                     .then(function (issueData) {
                         getProjectDetailsById(issueData.Project.Id);
                         $scope.issueData = issueData;
-                        $scope.isCurrentUserIssueAuthor = issueData.Author.Id === authentication.getUserId();
+                        $scope.issueData.LabelNames = joinProperties(issueData.Labels);
+                        $scope.isCurrentUserIssueAuthorOrAssignee = issueData.Author.Id === authentication.getUserId();
                     }, function (err) {
                         notifyService.showError('Cannot load issue', err);
                     });
@@ -67,7 +68,7 @@ angular.module('issueSystem.issues', [
                         $scope.commentsNone = issueComments.data.length === 0;
                     }, function (err) {
                         notifyService.showError('Cannot load comments for the current issue', err);
-                    })
+                    });
 
                 $scope.changeIssuesStatus = function(issueId, statusId) {
                     issuesService.changeStatus(issueId, statusId)
@@ -77,7 +78,17 @@ angular.module('issueSystem.issues', [
                         }, function (error) {
                             notifyService.showError('Issue\'s current status was not changed', error);
                         });
-                }
+                };
+
+                $scope.editIssue = function (issueData) {
+                    issuesService.updateIssue(issueData,
+                        function success() {
+                            notifyService.showInfo('You have successfully edited the issue');
+                            $route.reload();
+                        }, function error(err) {
+                            notifyService.showError('Editing the issue failed', err);
+                        })
+                };
             }
 
             $scope.addIssue = function (issueData) {
@@ -90,7 +101,7 @@ angular.module('issueSystem.issues', [
                     });
             };
 
-            $scope.joinProperties = function (array) {
+            function joinProperties(array) {
                 if(array !== undefined) {
                     var result = array.map(function (element) {
                         return element.Name

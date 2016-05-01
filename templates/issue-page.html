@@ -4,7 +4,7 @@
     <div class="alert alert-success info-panel" role="alert">Issue Page</div>
     <div class="inline">
         <p class="project-title inline bolded-item">123adfj</p>
-        <a ng-if="currentUserId === issueData.Author.Id" href="#/issues/{{issueData.Id}}/edit" class="btn btn-success">Edit</a>
+        <a ng-if="isCurrentUserProjectLead || currentUserId === issueData.Assignee.Id" href="#/issues/{{issueData.Id}}/edit" class="btn btn-success">Edit</a>
         <div>
             <label for="title" class="bolded-item">Title </label>
             <input class="inline" id="title" value="{{issueData.Title}}" readonly/>
@@ -33,7 +33,7 @@
             <p class="issue-paragraph inline" id="status">{{issueData.Status.Name}}</p>
             <br/>
             <label class="inline" for="labels">Labels: </label>
-            <p class="issue-paragraph inline" id="labels">{{joinProperties(issueData.Labels)}}</p>
+            <p class="issue-paragraph inline" id="labels">{{issueData.LabelNames}}</p>
         </div>
     </div>
     <div class="issue-statuses inline right">

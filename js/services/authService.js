@@ -28,11 +28,21 @@ angular.module('issueSystem.users.authentication', [])
 
                 $http.post(BASE_URL_API + 'Account/Register', user)
                     .then(function (response) {
-                        preserveUserData(response.data);
+                        var loginData = 'Username=' + user.email +
+                                '&Password=' + user.password +
+                                '&grant_type=password',
+                            request = getLoginRequest(loginData);
 
-                        identity.requestUserProfile()
-                            .then(function () {
-                                deferred.resolve(response.data);
+                        $http(request)
+                            .then(function (response) {
+                                preserveUserData(response.data);
+
+                                identity.requestUserProfile()
+                                    .then(function () {
+                                        deferred.resolve(response.data);
+                                    });
+                            }, function (error) {
+                                deferred.reject(error.data);
                             });
                     }, function (error) {
                         deferred.reject(error.data);
@@ -43,17 +53,10 @@ angular.module('issueSystem.users.authentication', [])
 
             function loginUser(user) {
                 var loginData = 'Username=' + user.username +
-                              '&Password=' + user.password +
-                              '&grant_type=password',
+                            '&Password=' + user.password +
+                            '&grant_type=password',
                     deferred = $q.defer(),
-                    request = {
-                        method: 'POST',
-                        url: BASE_URL_API + 'Token',
-                        data: loginData,
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        }
-                    };
+                    request = getLoginRequest(loginData);
 
                 $http(request)
                     .then(function (response) {
@@ -110,6 +113,19 @@ angular.module('issueSystem.users.authentication', [])
                 var isAdmin = atob($cookies.get(IS_ADMIN_KEY)) === 'true';
 
                 return isAdmin;
+            }
+
+            function getLoginRequest(loginData) {
+                var request = {
+                    method: 'POST',
+                    url: BASE_URL_API + 'Token',
+                    data: loginData,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                };
+
+                return request;
             }
 
             return {

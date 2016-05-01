@@ -50,6 +50,36 @@ angular.module('issueSystem.issues.issuesService', [])
                 return deferred.promise;
             }
 
+            function updateIssue(issueData, success, error) {
+                var labelsArray = issueData.LabelNames.split(", ");
+                var labels = [];
+                for (var labelObj in labelsArray) {
+                    var label = {
+                        Name: labelObj
+                    };
+
+                    labels.push(label);
+                }
+
+                var data = {
+                    Title: issueData.Title,
+                    Description: issueData.Description,
+                    DueDate: issueData.DueDate,
+                    ProjectId: issueData.ProjectId,
+                    AssigneeId: issueData.AssigneeId,
+                    PriorityId: issueData.PriorityId,
+                    Labels: labels
+                };
+
+                var request = {
+                    method: 'PUT',
+                    url: BASE_URL + 'issues/' + issueData.Id,
+                    data: data
+                };
+
+                $http(request).success(success).error(error);
+            }
+
             function changeStatus(issueId, statusId) {
                 var deferred = $q.defer(),
                     request = {
@@ -71,7 +101,8 @@ angular.module('issueSystem.issues.issuesService', [])
                 createIssue: createIssue,
                 getIssueById: getIssueById,
                 getCommentsForIssue: getCommentsForIssue,
-                changeStatus: changeStatus
+                changeStatus: changeStatus,
+                updateIssue: updateIssue
             }
         }
     ]);
