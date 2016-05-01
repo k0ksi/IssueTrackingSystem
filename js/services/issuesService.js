@@ -53,9 +53,11 @@ angular.module('issueSystem.issues.issuesService', [])
             function updateIssue(issueData, success, error) {
                 var labelsArray = issueData.LabelNames.split(", ");
                 var labels = [];
-                for (var labelObj in labelsArray) {
+                var labelsArrayLength = labelsArray.length;
+                for (var i = 0; i < labelsArrayLength; i++) {
+                    var labelName = labelsArray[i];
                     var label = {
-                        Name: labelObj
+                        Name: labelName
                     };
 
                     labels.push(label);

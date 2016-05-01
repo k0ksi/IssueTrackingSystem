@@ -37,6 +37,9 @@
             <label class="bolded-item" for="due-date" required="required">Due Date</label>
             <input class="inline" name="due-date" id="due-date" ng-model="issueData.DueDate" date-picker="" />
             <br/>
+            <label class="inline bolded-item" for="labels">Labels: </label>
+            <input id="labels" class="inline" ng-model="issueData.LabelNames" />
+            </br/>
             <button ng-disabled="addIssueForm.$invalid" ng-click="addIssue(issueData)" class="btn btn-success">Add Issue</button>
         </form>
     </div>
