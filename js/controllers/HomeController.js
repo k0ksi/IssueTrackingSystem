@@ -26,7 +26,7 @@ angular.module('issueSystem.home', [
                     .then(function () {
                         notifyService.showInfo('You have successfully logged in!');
                         $rootScope.isAuthenticated = authentication.isAuthenticated();
-                        $location.path('/dashboard');
+                        $location.path('/home');
                     }, function (err) {
                         notifyService.showError('You were unable to login. Check your credentials!', err.error);
                     });
@@ -37,7 +37,7 @@ angular.module('issueSystem.home', [
                     .then(function () {
                         notifyService.showInfo('You have successfully registered!');
                         $rootScope.isAuthenticated = authentication.isAuthenticated();
-                        $location.path('/dashboard');
+                        $location.path('/home');
                     }, function (err) {
                         notifyService.showError('You were unable to register! Check the length of your password.', err.error);
                     });

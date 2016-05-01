@@ -1,6 +1,6 @@
 <div ng-if="isCurrentUserProjectLead || currentUserId === issueData.Assignee.Id" class="dashboard">
     <a href="#/issues/{{issueData.Id}}" class="btn btn-success">Go Back To Issue</a>
-    <a href="#/dashboard" class="btn btn-success">Dashboard</a>
+    <a href="#/home" class="btn btn-success">Dashboard</a>
     <a ng-if="isAdmin" class="btn btn-success">Projects</a>
     <div class="alert alert-success info-panel" role="alert">Edit Issue</div>
     <div class="inline">

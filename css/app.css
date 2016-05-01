@@ -57,6 +57,10 @@ select {
     margin-bottom: 0px;
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
 input[disabled], select[disabled] { /* Text and background colour, medium red on light yellow */
     background-color: rgb(227, 227, 227);
     border: 1px solid rgb(204, 204, 204);

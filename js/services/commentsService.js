@@ -5,7 +5,7 @@ angular.module('issueSystem.comments.commentsService', [])
         '$http',
         'BASE_URL',
         function ($http, BASE_URL) {
-            function addComment(issueId, commentData) {
+            function addComment(issueId, commentData, success, error) {
                 var request = {
                     method: 'POST',
                     url: BASE_URL + 'issues/' + issueId + '/comments',

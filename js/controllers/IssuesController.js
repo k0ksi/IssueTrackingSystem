@@ -19,6 +19,9 @@ angular.module('issueSystem.issues', [
                 issueId,
                 userEmail = authentication.getUserEmail(),
                 userId = authentication.getUserId();
+            $scope.comment = {
+                Text: ''
+            };
 
             if($location.path().indexOf('/projects') != -1) {
                 projectId = $routeParams.id;
@@ -97,9 +100,24 @@ angular.module('issueSystem.issues', [
                         function success() {
                             notifyService.showInfo('You have successfully added a new comment');
                         }, function error(err) {
-                            notifyService.showError('Adding your comment failed', err);
+                            notifyService.showError('Adding your comment failed. Please enter text for your comment.', err);
                         })
                 };
+
+                $scope.appendComment = function (commentText) {
+                    var text = commentText.Text;
+                    var comment = {
+                        Text: text,
+                        Author: {
+                            Username: authentication.getUserEmail()
+                        },
+                        CreatedOn: new Date()
+                    };
+
+                    $scope.comment = { };
+                    $scope.comments.push(comment);
+                    console.log($scope.comments.length);
+                }
             }
 
             $scope.addIssue = function (issueData) {
