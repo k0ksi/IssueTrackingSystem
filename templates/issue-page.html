@@ -56,6 +56,6 @@
         <label for="comment-text" class="bolded-item margin-top-15">Text: </label>
         <br/>
         <textarea required="required" ng-model="comment.Text" id="comment-text" class="form-control"></textarea>
-        <button ng-disabled="addCommentForm.$invalid" ng-click="addComment(comment)" class="btn btn-success">Add Comment</button>
+        <button ng-disabled="addCommentForm.$invalid" ng-click="addComment(issueData.Id, comment)" class="btn btn-success">Add Comment</button>
     </form>
 </div>

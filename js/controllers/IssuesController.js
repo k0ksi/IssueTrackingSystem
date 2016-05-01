@@ -91,8 +91,9 @@ angular.module('issueSystem.issues', [
                         })
                 };
 
-                $scope.addComment = function (comment) {
-                    commentsService.addComment(comment,
+                $scope.addComment = function (issueId, comment) {
+                    commentsService.addComment(issueId,
+                        comment,
                         function success() {
                             notifyService.showInfo('You have successfully added a new comment');
                         }, function error(err) {
