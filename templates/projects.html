@@ -1,0 +1,13 @@
+<div class="dashboard dashboard" style="height: 100%;">
+    <a href="#/home" class="btn btn-success">Dashboard</a>
+    <a href="#/projects" ng-if="isAdmin" class="btn btn-success">Projects</a>
+    <div class="alert alert-success info-panel" role="alert">Projects</div>
+    <div ng-repeat="project in projects.Projects">
+        <h5 class="inline">{{project.Name}}</h5>
+        <a href="#/projects/{{project.Id}}" class="inline btn btn-primary">View</a>
+    </div>
+    <pagination total-items="projects.TotalCount" ng-model="projectsParams.pageNumber" items-per-page="projectsParams.pageSize" ng-change="reloadProjects()" max-size="8" boundary-links="true">
+    </pagination>
+    <a ng-if="isAdmin" class="hr-projects-page margin-top-15 btn btn-success">Add New Project</a>
+    <hr/>
+</div>

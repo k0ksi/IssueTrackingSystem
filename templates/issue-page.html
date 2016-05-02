@@ -1,10 +1,10 @@
 <div ng-cloak class="dashboard">
     <a href="#/home" class="btn btn-success">Dashboard</a>
-    <a ng-if="isAdmin" class="btn btn-success">Projects</a>
+    <a href="#/projects" ng-if="isAdmin" class="btn btn-success">Projects</a>
     <div class="alert alert-success info-panel" role="alert">Issue Page</div>
     <div class="inline">
         <p class="project-title inline bolded-item">123adfj</p>
-        <a ng-if="isCurrentUserProjectLead || currentUserId === issueData.Assignee.Id" href="#/issues/{{issueData.Id}}/edit" class="btn btn-success">Edit</a>
+        <a ng-if="isCurrentUserProjectLead || currentUserId === issueData.Assignee.Id || isAdmin" href="#/issues/{{issueData.Id}}/edit" class="btn btn-success">Edit</a>
         <div>
             <label for="title" class="bolded-item">Title </label>
             <input class="inline" id="title" value="{{issueData.Title}}" readonly/>
@@ -46,13 +46,13 @@
             </button>
         </div>
     </div>
-    <hr>
+    <hr class="hr-issue">
     <div ng-repeat="comment in comments" id="all-comments">
         <div class="alert alert-success comment-author" role="alert">{{comment.Author.Username}} - {{comment.CreatedOn | date : 'dd MMMM yyyy'}}</div>
         <div class="comment-text">{{comment.Text}}</div>
     </div>
     <div ng-if="commentsNone">No comments</div>
-    <form name="addCommentForm" ng-if="isCurrentUserProjectLead || currentUserId === issueData.Assignee.Id" class="form-group">
+    <form name="addCommentForm" ng-if="isCurrentUserProjectLead || currentUserId === issueData.Assignee.Id || isAdmin" class="form-group">
         <div class="comment-section">
             <label for="comment-text" class="bolded-item margin-top-15">Text: </label>
             <br/>

@@ -48,6 +48,11 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'IssuesController'
     });
 
+    $routeProvider.when('/projects', {
+        templateUrl: 'templates/projects.html',
+        controller: 'ProjectsController'
+    });
+
     $routeProvider.when('/issues/:id', {
         templateUrl: 'templates/issue-page.html',
         controller: 'IssuesController'
@@ -76,6 +81,10 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.run(function ($rootScope, $location, authentication) {
     authentication.refreshCookie();
     $rootScope.$on('$locationChangeStart', function () {
+        if($location.path() === "/projects" && !authentication.isAdmin()) {
+            $location.path('/');
+        }
+
         if(($location.path().indexOf("/home") != -1 ||
            $location.path().indexOf("/projects") != -1 ||
            $location.path().indexOf("/issues") != -1 ||

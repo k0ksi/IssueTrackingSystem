@@ -9,8 +9,6 @@ angular.module('issueSystem.dashboard.myDashboard', [])
         'identity',
         'authentication',
         function ($http, $q, $resource, BASE_URL, identity, authentication) {
-            var headers = authentication.getAuthHeaders();
-
             var issuesResource = $resource(
                 BASE_URL + 'issues/me',
                 null,

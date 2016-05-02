@@ -82,7 +82,28 @@ angular.module('issueSystem.projects', [
                 $scope.filters.push('Due Until Today');
             }
 
-            getProjectById($routeParams.id);
+            function getAllProjects() {
+                projectsService.getAllProjects(
+                    $scope.projectsParams,
+                    function success(data) {
+                        $scope.projects = data;
+                        $scope.projectsNone = data.Projects.length === 0;
+                    }
+                );
+            }
+
+            if($routeParams.id) {
+                getProjectById($routeParams.id);
+            } else {
+                $scope.projectsParams = {
+                    'pageNumber' : 1,
+                    'pageSize' : 7,
+                    'filter': ''
+                };
+
+                $scope.reloadProjects = getAllProjects;
+                $scope.reloadProjects();
+            }
         }
     ]
 );

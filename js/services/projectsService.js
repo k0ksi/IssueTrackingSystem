@@ -4,9 +4,10 @@ angular.module('issueSystem.projects.projectsService', [])
     .factory('projectsService', [
         '$http',
         '$q',
+        '$resource',
         'authentication',
         'BASE_URL',
-        function ($http, $q, authentication, BASE_URL) {
+        function ($http, $q, $resource, authentication, BASE_URL) {
             function getProjectById(projectId) {
                 var deferred = $q.defer(),
                     request = {
@@ -101,6 +102,16 @@ angular.module('issueSystem.projects.projectsService', [])
                 $http(request).success(success).error(error);
             }
 
+            var projectsResource = $resource(
+                BASE_URL + 'projects',
+                null,
+                {
+                    'getAllProjects': {
+                        method: 'GET'
+                    }
+                }
+            );
+
             function getProjects() {
                 var deferred = $q.defer(),
                     request = {
@@ -122,7 +133,10 @@ angular.module('issueSystem.projects.projectsService', [])
                 getProjectById: getProjectById,
                 getIssuesForProject: getIssuesForProject,
                 updateProject: updateProject,
-                getProjects: getProjects
+                getProjects: getProjects,
+                getAllProjects: function (params, success, error) {
+                    return projectsResource.getAllProjects(params, success, error);
+                }
             }
         }
     ]
