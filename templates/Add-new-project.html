@@ -1,1 +1,32 @@
-<p>1</p>
+<div ng-if="isCurrentUserProjectLead || isAdmin" class="dashboard">
+    <a href="#/home" class="btn btn-success">Dashboard</a>
+    <a href="#/projects" ng-if="isAdmin" class="btn btn-success">Projects</a>
+    <div class="alert alert-success info-panel" role="alert">New Project</div>
+    <div class="inline">
+        <form name="addProjectForm">
+            <label class="bolded-item" for="name">Name </label>
+            <input class="inline" id="name" ng-model="projectData.Name" required="required" />
+            <br/>
+            <label class="bolded-item" for="project-key">Project Key </label>
+            <input class="inline" id="project-key" ng-model="projectData.ProjectKey" required="required">
+            <br/>
+            <label class="bolded-item" for="lead-id">Lead</label>
+            <select required="required" id="lead-id" name="lead-id"
+                    ng-options="user.Id as user.Username for user in users track by user.Id"
+                    ng-model="projectData.LeadId">
+            </select>
+            <br/>
+            <label class="bolded-item" for="priorities">Priorities (separated by comma) </label>
+            <input required="required" class="inline" name="priorities" id="priorities" ng-model="projectData.LabelNames" />
+            <br/>
+            <label class="bolded-item" for="labels">Labels (separated by comma) </label>
+            <input class="inline" name="labels" id="labels" ng-model="projectData.PriorityNames" />
+            <br/>
+            <label class="bolded-item" for="description">Description </label>
+            <textarea class="inline" id="description" ng-model="projectData.Description" required="required"></textarea>
+            <br/>
+            <button ng-disabled="addProjectForm.$invalid" ng-click="addProject(projectData)" class="btn btn-success">Create Project</button>
+        </form>
+    </div>
+    <hr/>
+</div>

@@ -82,11 +82,11 @@ angular.module('issueSystem.issues.issuesService', [])
             }
 
             function getIssueData(issueData) {
-                var labelsArray = issueData.LabelNames.split(", ");
+                var labelsArray = issueData.LabelNames.split(",");
                 var labels = [];
                 var labelsArrayLength = labelsArray.length;
                 for (var i = 0; i < labelsArrayLength; i++) {
-                    var labelName = labelsArray[i];
+                    var labelName = labelsArray[i].trim();
                     var label = {
                         Name: labelName
                     };

@@ -8,6 +8,6 @@
     </div>
     <pagination total-items="projects.TotalCount" ng-model="projectsParams.pageNumber" items-per-page="projectsParams.pageSize" ng-change="reloadProjects()" max-size="8" boundary-links="true">
     </pagination>
-    <a ng-if="isAdmin" class="hr-projects-page margin-top-15 btn btn-success">Add New Project</a>
+    <a href="#/projects/add" ng-if="isAdmin" class="hr-projects-page margin-top-15 btn btn-success">Add New Project</a>
     <hr/>
 </div>

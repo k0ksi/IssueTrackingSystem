@@ -17,6 +17,11 @@ angular.module('issueSystem.projects', [
             $scope.projectData = {};
             $scope.isAdmin = authentication.isAdmin();
 
+            var location = $location.path();
+            if(location === '/projects/add') {
+                getAllUsers();
+            }
+
             function getProjectById(id) {
                 projectsService.getProjectById(id)
                     .then(function (projectData) {
@@ -50,6 +55,16 @@ angular.module('issueSystem.projects', [
                         $location.path('/projects/' + projectData.Id);
                     }, function error(err) {
                         notifyService.showError('Editing the project failed', err);
+                    })
+            };
+
+            $scope.addProject = function (projectData) {
+                projectsService.createProject(projectData,
+                    function success(data) {
+                        notifyService.showInfo('You have successfully created a project');
+                        $location.path('/projects/' + data.Id);
+                    }, function error(err) {
+                        notifyService.showError('Creating the project failed', err);
                     })
             };
 

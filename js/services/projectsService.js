@@ -102,6 +102,28 @@ angular.module('issueSystem.projects.projectsService', [])
                 $http(request).success(success).error(error);
             }
 
+            function createProject(projectData, success, error) {
+                var labels = parseLabels(projectData.LabelNames);
+                var priorities = parsePriorities(projectData.PriorityNames);
+
+                var data = {
+                    Name: projectData.Name,
+                    Description: projectData.Description,
+                    ProjectKey: projectData.ProjectKey,
+                    LeadId: projectData.LeadId,
+                    Labels: labels,
+                    Priorities: priorities
+                };
+
+                var request = {
+                    method: 'POST',
+                    url: BASE_URL + 'projects',
+                    data: data
+                };
+
+                $http(request).success(success).error(error);
+            }
+
             var projectsResource = $resource(
                 BASE_URL + 'projects',
                 null,
@@ -129,11 +151,44 @@ angular.module('issueSystem.projects.projectsService', [])
                 return deferred.promise;
             }
 
+            function parsePriorities(priorityNames) {
+                var prioritiesArray = priorityNames.split(",");
+                var priorities = [];
+                var prioritiesArrayLength = prioritiesArray.length;
+                for (var i = 0; i < prioritiesArrayLength; i++) {
+                    var priorityName = prioritiesArray[i].trim();
+                    var priority = {
+                        Name: priorityName
+                    };
+
+                    priorities.push(priority);
+                }
+
+                return priorities;
+            }
+
+            function parseLabels(labelNames) {
+                var labelsArray = labelNames.split(",");
+                var labels = [];
+                var labelsArrayLength = labelsArray.length;
+                for (var i = 0; i < labelsArrayLength; i++) {
+                    var labelName = labelsArray[i].trim();
+                    var label = {
+                        Name: labelName
+                    };
+
+                    labels.push(label);
+                }
+
+                return labels;
+            }
+
             return {
                 getProjectById: getProjectById,
                 getIssuesForProject: getIssuesForProject,
                 updateProject: updateProject,
                 getProjects: getProjects,
+                createProject: createProject,
                 getAllProjects: function (params, success, error) {
                     return projectsResource.getAllProjects(params, success, error);
                 }
