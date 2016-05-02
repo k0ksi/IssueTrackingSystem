@@ -19,7 +19,8 @@ var app = angular.module('issueSystem', [
     'issueSystem.issues.issuesService',
     'issueSystem.common.datepicker',
     'issueSystem.common.defaultSelect',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'ngAnimate'
     ]);
 
 app.constant('BASE_URL_API', 'http://softuni-issue-tracker.azurewebsites.net/api/');
