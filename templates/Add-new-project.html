@@ -3,7 +3,7 @@
     <a href="#/projects" ng-if="isAdmin" class="btn btn-success">Projects</a>
     <div class="alert alert-success info-panel" role="alert">New Project</div>
     <div class="inline">
-        <form name="addProjectForm">
+        <form name="addProjectForm" class="form-inline" role="form">
             <label class="bolded-item" for="name">Name </label>
             <input class="inline" id="name" ng-model="projectData.Name" required="required" />
             <br/>
@@ -17,7 +17,7 @@
             </select>
             <br/>
             <label class="bolded-item" for="priorities">Priorities (separated by comma) </label>
-            <input required="required" class="inline" name="priorities" id="priorities" bs-options="label for label in labels" ng-model="projectData.LabelNames" bs-typeahead />
+            <input required="required" class="inline" name="priorities" id="priorities" bs-options="label for label in labels" ng-model="projectData.LabelNames" />
             <br/>
             <label class="bolded-item" for="labels">Labels (separated by comma) </label>
             <input class="inline" name="labels" id="labels" ng-model="projectData.PriorityNames" />

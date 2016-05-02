@@ -21,8 +21,7 @@ var app = angular.module('issueSystem', [
     'issueSystem.common.defaultSelect',
     'angular-loading-bar',
     'ngAnimate',
-    'issueSystem.labels.labelsService',
-    'mgcrea.ngStrap'
+    'issueSystem.labels.labelsService'
     ]);
 
 app.constant('BASE_URL_API', 'http://softuni-issue-tracker.azurewebsites.net/api/');
