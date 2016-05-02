@@ -33,6 +33,11 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'DashboardController'
     });
 
+    $routeProvider.when('/projects/add', {
+        templateUrl: 'templates/Add-new-project.html',
+        controller: 'ProjectsController'
+    });
+
     $routeProvider.when('/projects/:id', {
         templateUrl: 'templates/project-page.html',
         controller: 'ProjectsController'
@@ -81,8 +86,10 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.run(function ($rootScope, $location, authentication) {
     authentication.refreshCookie();
     $rootScope.$on('$locationChangeStart', function () {
-        if($location.path() === "/projects" && !authentication.isAdmin()) {
-            $location.path('/');
+        if(($location.path() === "/projects" ||
+            $location.path() === "/projects/add") &&
+            !authentication.isAdmin()) {
+            $location.path('/home');
         }
 
         if(($location.path().indexOf("/home") != -1 ||
