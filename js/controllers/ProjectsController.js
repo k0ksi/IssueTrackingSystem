@@ -2,7 +2,8 @@
 
 angular.module('issueSystem.projects', [
         'issueSystem.projects.projectsService',
-        'issueSystem.users.usersService'
+        'issueSystem.users.usersService',
+        'issueSystem.labels.labelsService'
     ])
     .controller('ProjectsController', [
         '$scope',
@@ -13,13 +14,15 @@ angular.module('issueSystem.projects', [
         'authentication',
         'notifyService',
         'usersService',
-        function ($scope, $route, projectsService, $routeParams, $location, authentication, notifyService, usersService) {
+        'labelsService',
+        function ($scope, $route, projectsService, $routeParams, $location, authentication, notifyService, usersService, labelsService) {
             $scope.projectData = {};
             $scope.isAdmin = authentication.isAdmin();
 
             var location = $location.path();
             if(location === '/projects/add') {
                 getAllUsers();
+                getAllLabels();
             }
 
             function getProjectById(id) {
@@ -82,6 +85,13 @@ angular.module('issueSystem.projects', [
                 usersService.getAllUsers()
                     .then(function (users) {
                         $scope.users = users
+                    });
+            }
+
+            function getAllLabels() {
+                labelsService.getAllLabels()
+                    .then(function (labels) {
+                        $scope.labels = labels;
                     });
             }
 
