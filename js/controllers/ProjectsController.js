@@ -22,6 +22,7 @@ angular.module('issueSystem.projects', [
                     .then(function (projectData) {
                         getIssuesForProject($routeParams.id);
                         getAllUsers();
+                        loadFilters();
                         $scope.isCurrentUserProjectLead = projectData.Lead.Id === authentication.getUserId();
                         $scope.projectData = projectData;
                     }, function (err) {
@@ -29,13 +30,18 @@ angular.module('issueSystem.projects', [
                     });
             }
 
-            function getIssuesForProject(projectId) {
-                projectsService.getIssuesForProject(projectId)
+            function getIssuesForProject(projectId, filter) {
+                projectsService.getIssuesForProject(projectId, filter)
                     .then(function (issues) {
-                        $scope.projectData.issues = issues.data;
-                        $scope.issuesNone = issues.data.length === 0;
+                        $scope.projectData.issues = issues.data.Issues;
+                        $scope.issuesNone = issues.data.Issues.length === 0;
                     });
             }
+
+            $scope.filterIssues = function(projectId) {
+                var filter = $scope.defaultFilter;
+                getIssuesForProject(projectId, filter);
+            };
 
             $scope.editProject = function (projectData) {
                 projectsService.updateProject(projectData,
@@ -62,6 +68,18 @@ angular.module('issueSystem.projects', [
                     .then(function (users) {
                         $scope.users = users
                     });
+            }
+
+            function loadFilters() {
+                $scope.defaultFilter = 'My Issues';
+                $scope.filters = [];
+                $scope.filters.push('My Issues');
+                $scope.filters.push('All Issues');
+                $scope.filters.push('Open Issues');
+                $scope.filters.push('In Progress Issues');
+                $scope.filters.push('Stopped Progress Issues');
+                $scope.filters.push('Closed Issues');
+                $scope.filters.push('Due Until Today');
             }
 
             getProjectById($routeParams.id);

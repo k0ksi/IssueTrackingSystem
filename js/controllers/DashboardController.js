@@ -40,33 +40,20 @@ angular.module('issueSystem.dashboard', [
                     function success(data) {
                         $scope.issues = data;
                         $scope.issuesNone = data.Issues.length === 0;
-                        var issuesLength = data.Issues.length;
+                        /*var issuesLength = data.Issues.length;
                         for (var i = 0; i < issuesLength; i++) {
                             var issue = data.Issues[i];
                             if(!projectIds[issue.Project.Id]) {
                                 affiliatedProjects.push(issue.Project);
                                 projectIds[issue.Project.Id] = issue.Project.Id;
                             }
-                        }
+                        }*/
                     });
             }
 
             $scope.reloadIssues = getLatestIssues;
 
             $scope.reloadIssues();
-
-            /*myDashboard.getAllIssues(
-                function success(allIssues) {
-                    var issuesLength = allIssues.Issues.length;
-                    for (var i = 0; i < issuesLength; i++) {
-                        var issue = allIssues.Issues[i];
-                        if(!projectIds[issue.Project.Id]) {
-                            affiliatedProjects.push(issue.Project);
-                            projectIds[issue.Project.Id] = issue.Project.Id;
-                        }
-                    }
-                }
-            );*/
 
             myDashboard.getProjectsWithCurrentUserAsLead(currentUserId)
                 .then(function (myProjects) {
@@ -83,4 +70,17 @@ angular.module('issueSystem.dashboard', [
 
                     $scope.userAffiliatedProjects = affiliatedProjects;
                 });
+
+            myDashboard.getAllIssues(
+                function success(allIssues) {
+                    var issuesLength = allIssues.Issues.length;
+                    for (var i = 0; i < issuesLength; i++) {
+                        var issue = allIssues.Issues[i];
+                        if(!projectIds[issue.Project.Id]) {
+                            affiliatedProjects.push(issue.Project);
+                            projectIds[issue.Project.Id] = issue.Project.Id;
+                        }
+                    }
+                }
+            );
     }]);

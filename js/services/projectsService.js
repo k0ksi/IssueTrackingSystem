@@ -4,8 +4,9 @@ angular.module('issueSystem.projects.projectsService', [])
     .factory('projectsService', [
         '$http',
         '$q',
+        'authentication',
         'BASE_URL',
-        function ($http, $q, BASE_URL) {
+        function ($http, $q, authentication, BASE_URL) {
             function getProjectById(projectId) {
                 var deferred = $q.defer(),
                     request = {
@@ -23,11 +24,53 @@ angular.module('issueSystem.projects.projectsService', [])
                 return deferred.promise;
             }
 
-            function getIssuesForProject(projectId) {
+            // http://softuni-issue-tracker.azurewebsites.net/issues/?filter=Project.Id ==245 and Assignee.Id="92925a62-07ab-435a-819e-33dd6ac907ef"&pageSize=10000&pageNumber=1
+            function getIssuesForProject(projectId, filterData) {
+                var userId = authentication.getUserId(),
+                    filter;
+
+                switch (filterData) {
+                    case 'My Issues':
+                        filter = ' and Assignee.Id=="' + userId + '"';
+                        break;
+                    case 'All Issues':
+                        filter = '';
+                        break;
+                    case 'Open Issues':
+                        filter = ' and Status.Name=="Open"';
+                        break;
+                    case 'In Progress Issues':
+                        filter = ' and Status.Name=="InProgress"';
+                        break;
+                    case 'Stopped Progress Issues':
+                        filter = ' and Status.Name=="StoppedProgress"';
+                        break;
+                    case 'Closed Issues':
+                        filter = ' and Status.Name=="Closed"';
+                        break;
+                    case 'Due Until Today':
+                        var day = new Date().getUTCDay() + 1;
+                        var month = new Date().getUTCMonth() + 1;
+                        var year = new Date().getUTCFullYear();
+                        filter = ' and DueDate.Day==' + day +
+                                 ' and DueDate.Month=' + month +
+                                 ' and DueDate.Year=' + year;
+                        break;
+                    default:
+                        filter = ' and Assignee.Id=="' + userId + '"';
+                        break;
+                }
+
+                var url = BASE_URL +
+                        'issues/' +
+                        '?filter=Project.Id==' + projectId +
+                        filter +
+                        '&pageSize=10000&pageNumber=1';
+
                 var deferred = $q.defer(),
                     request = {
                         method: 'GET',
-                        url: BASE_URL + 'projects/' + projectId + '/issues'
+                        url: url
                     };
 
                 $http(request)

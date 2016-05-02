@@ -74,11 +74,42 @@ angular.module('issueSystem.issues', [
                         notifyService.showError('Cannot load comments for the current issue', err);
                     });
 
-                $scope.changeIssuesStatus = function(issueId, statusId) {
+                $scope.changeIssuesStatus = function(issueId, statusId, statusName, oldStatus) {
+                    var status = {
+                        Id: oldStatus.Id,
+                        Name: oldStatus.Name
+                    };
+
                     issuesService.changeStatus(issueId, statusId)
                         .then(function () {
                             notifyService.showInfo('Issue\'s current status has been changed successfully');
-                            $route.reload();
+                            $scope.issueData.Status.Name = statusName;
+                            $scope.issueData.Status.Id = statusId;
+
+                            if(statusName === 'Closed') {
+                                $scope.issueData.AvailableStatuses = [];
+                            } else {
+                                if(status.Name == 'Open') {
+                                    var stoppedProgressStatus = {
+                                        Id: 4,
+                                        Name: 'StoppedProgress'
+                                    };
+
+                                    $scope.issueData.AvailableStatuses.push(stoppedProgressStatus);
+                                } else {
+                                    $scope.issueData.AvailableStatuses.push(status);
+                                }
+
+                                var length = $scope.issueData.AvailableStatuses.length;
+                                for (var i = 0; i < length; i++) {
+                                    var statusObj = $scope.issueData.AvailableStatuses[i];
+
+                                    if(statusObj.Name == statusName) {
+                                        $scope.issueData.AvailableStatuses.splice(i, 1);
+                                        break;
+                                    }
+                                }
+                            }
                         }, function (error) {
                             notifyService.showError('Issue\'s current status was not changed', error);
                         });

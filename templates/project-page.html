@@ -52,4 +52,11 @@
             </tbody>
         </table>
     </div>
+
+    <h5>Filter Issues: </h5>
+    <select name="filter-issues" id="filter-issues"
+            ng-options="filter as filter for filter in filters"
+            ng-model="defaultFilter"
+            ng-change="filterIssues(projectData.Id)">
+    </select>
 </div>
