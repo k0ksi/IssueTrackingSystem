@@ -169,7 +169,7 @@ angular.module('issueSystem.issues', [
 
                     return result;
                 }
-            };
+            }
 
             function getProjectDetailsById(projectId) {
                 projectsService.getProjectById(projectId)

@@ -8,27 +8,35 @@
       <label class="bolded-item" for="name">Name </label>
       <input class="inline" id="name" ng-model="projectData.Name" required="required" />
       <br/>
-      <label class="bolded-item" for="description">Description </label>
-      <input class="inline" id="description" ng-model="projectData.Description" required="required" />
-      <br/>
-      <label for="lead-id">Lead</label>
-      <select disabled id="lead-id"><!--name="project-id" id="project-id"
+      <label class="inline bolded-item" for="lead-id">Lead</label>
+      <div class="inline" ng-if="isAdmin">
+        <select required="required" id="lead-id" name="lead-id"
+                ng-options="user.Id as user.Username for user in users track by user.Id"
+                ng-model="projectData.LeadId">
+        </select>
+      </div>
+      <div class="inline" ng-if="isCurrentUserProjectLead && !isAdmin">
+        <select disabled><!--name="project-id" id="project-id"
                     ng-options="project.Name for project in projects track by project.Id"
                     ng-model="projectData.Title"-->
-        <option selected = selected>
-          {{projectData.Lead.Username}}
-        </option>
-      </select>
+          <option selected = selected>
+            {{projectData.Lead.Username}}
+          </option>
+        </select>
+      </div>
       <br/>
       <!--<select name="lead-id" id="lead-id"
         ng-options="user.Username for user in users track by user.Id"
         ng-model="projectData.Lead">
       </select>-->
       <label class="bolded-item" for="priorities">Priorities (separated by comma) </label>
-      <input class="inline" name="priorities" id="priorities" value="{{joinProperties(projectData.Priorities)}}" readonly />
+      <input class="inline" name="priorities" id="priorities" ng-model="projectData.PriorityNames" />
       <br/>
       <label class="bolded-item" for="labels">Labels (separated by comma) </label>
-      <input class="inline" name="labels" id="labels" value="{{joinProperties(projectData.Labels)}}" readonly />
+      <input class="inline" name="labels" id="labels" ng-model="projectData.LabelNames" />
+      <br/>
+      <label class="bolded-item" for="description">Description </label>
+      <textarea class="inline" id="description" ng-model="projectData.Description" required="required"></textarea>
       <br/>
       <button ng-disabled="editProjectForm.$invalid" ng-click="editProject(projectData)" class="btn btn-success">Edit Project</button>
     </form>

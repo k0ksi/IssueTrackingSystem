@@ -3,11 +3,12 @@
 angular.module('issueSystem.projects.projectsService', [])
     .factory('projectsService', [
         '$http',
+        '$rootScope',
         '$q',
         '$resource',
         'authentication',
         'BASE_URL',
-        function ($http, $q, $resource, authentication, BASE_URL) {
+        function ($http, $rootScope, $q, $resource, authentication, BASE_URL) {
             function getProjectById(projectId) {
                 var deferred = $q.defer(),
                     request = {
@@ -25,7 +26,6 @@ angular.module('issueSystem.projects.projectsService', [])
                 return deferred.promise;
             }
 
-            // http://softuni-issue-tracker.azurewebsites.net/issues/?filter=Project.Id ==245 and Assignee.Id="92925a62-07ab-435a-819e-33dd6ac907ef"&pageSize=10000&pageNumber=1
             function getIssuesForProject(projectId, filterData) {
                 var userId = authentication.getUserId(),
                     filter;
@@ -85,13 +85,28 @@ angular.module('issueSystem.projects.projectsService', [])
             }
 
             function updateProject(projectData, success, error) {
-                var data = {
-                    'Name': projectData.Name,
-                    'Description': projectData.Description,
-                    'Labels': projectData.Labels,
-                    'Priorities': projectData.Priorities,
-                    'LeadId': projectData.Lead.Id
-                };
+                var labels = parseLabels(projectData.LabelNames),
+                    priorities = parsePriorities(projectData.PriorityNames),
+                    data;
+
+                if($rootScope.isAdmin) {
+                    data = {
+                        'Name': projectData.Name,
+                        'Description': projectData.Description,
+                        'ProjectKey': projectData.ProjectKey,
+                        'Labels': labels,
+                        'Priorities': priorities,
+                        'LeadId': projectData.LeadId
+                    };
+                } else {
+                    data = {
+                        'Name': projectData.Name,
+                        'Description': projectData.Description,
+                        'LeadId': authentication.getUserId(),
+                        'Priorities': priorities,
+                        'Labels': labels
+                    }
+                }
 
                 var request = {
                     method: 'PUT',

@@ -33,6 +33,8 @@ angular.module('issueSystem.projects', [
                         loadFilters();
                         $scope.isCurrentUserProjectLead = projectData.Lead.Id === authentication.getUserId();
                         $scope.projectData = projectData;
+                        $scope.projectData.LabelNames = joinProperties(projectData.Labels);
+                        $scope.projectData.PriorityNames = joinProperties(projectData.Priorities);
                     }, function (err) {
                         notifyService.showError('Cannot load project', err);
                     });
@@ -115,6 +117,16 @@ angular.module('issueSystem.projects', [
                         $scope.projectsNone = data.Projects.length === 0;
                     }
                 );
+            }
+
+            function joinProperties(array) {
+                if(array !== undefined) {
+                    var result = array.map(function (element) {
+                        return element.Name
+                    }).join(", ");
+
+                    return result;
+                }
             }
 
             if($routeParams.id) {
