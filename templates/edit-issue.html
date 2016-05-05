@@ -13,9 +13,7 @@
             <input ng-disabled="!(isCurrentUserProjectLead || isAdmin)" class="inline" id="description" ng-model="issueData.Description" required="required"/>
             <br/>
             <label class="bolded-item" for="project-id">Project</label>
-            <select disabled id="project-id" required="required"><!--name="project-id" id="project-id"
-                    ng-options="project.Name for project in projects track by project.Id"
-                    ng-model="projectData.Title"-->
+            <select disabled id="project-id" required="required">
                 <option selected = selected>
                     {{issueData.Project.Name}}
                 </option>

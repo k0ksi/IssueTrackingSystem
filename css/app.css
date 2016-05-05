@@ -197,6 +197,10 @@ input[disabled], select[disabled] { /* Text and background colour, medium red on
     font-size: 16px;
 }
 
+.max-height {
+    height: 100%
+}
+
 @media screen and (max-width: 1200px) {
     .right {
         float: none;

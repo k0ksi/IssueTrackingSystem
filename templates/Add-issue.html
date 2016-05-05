@@ -12,9 +12,7 @@
             <input class="inline" id="description" ng-model="issueData.Description" required="required" />
             <br/>
             <label class="bolded-item" for="project-id">Project</label>
-            <select disabled id="project-id"><!--name="project-id" id="project-id"
-                    ng-options="project.Name for project in projects track by project.Id"
-                    ng-model="projectData.Title"-->
+            <select disabled id="project-id">
                 <option selected = selected>
                     {{projectData.Name}}
                 </option>

@@ -16,19 +16,13 @@
         </select>
       </div>
       <div class="inline" ng-if="isCurrentUserProjectLead && !isAdmin">
-        <select disabled><!--name="project-id" id="project-id"
-                    ng-options="project.Name for project in projects track by project.Id"
-                    ng-model="projectData.Title"-->
+        <select disabled>
           <option selected = selected>
             {{projectData.Lead.Username}}
           </option>
         </select>
       </div>
       <br/>
-      <!--<select name="lead-id" id="lead-id"
-        ng-options="user.Username for user in users track by user.Id"
-        ng-model="projectData.Lead">
-      </select>-->
       <label class="bolded-item" for="priorities">Priorities (separated by comma) </label>
       <input class="inline" name="priorities" id="priorities" ng-model="projectData.PriorityNames" />
       <br/>
