@@ -8,9 +8,6 @@
             <label class="bolded-item" for="title">Title </label>
             <input class="inline" id="title" ng-model="issueData.Title" required="required" />
             <br/>
-            <label class="bolded-item" for="description">Description </label>
-            <input class="inline" id="description" ng-model="issueData.Description" required="required" />
-            <br/>
             <label class="bolded-item" for="project-id">Project</label>
             <select disabled id="project-id">
                 <option selected = selected>
@@ -38,7 +35,10 @@
             <label class="inline bolded-item" for="labels">Labels: </label>
             <input id="labels" class="inline" ng-model="issueData.LabelNames" />
             </br/>
-            <button ng-disabled="addIssueForm.$invalid" ng-click="addIssue(issueData)" class="btn btn-success">Add Issue</button>
+            <label class="bolded-item" for="description">Description </label>
+            <textarea class="inline" id="description" ng-model="issueData.Description" required="required"></textarea>
+            <br/>
+            <button ng-disabled="addIssueForm.$invalid" ng-click="addIssue(issueData)" class="btn btn-success">Create Issue</button>
         </form>
     </div>
     <hr/>

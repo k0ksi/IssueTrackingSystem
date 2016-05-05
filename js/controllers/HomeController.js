@@ -39,7 +39,8 @@ angular.module('issueSystem.home', [
                         $rootScope.isAuthenticated = authentication.isAuthenticated();
                         $location.path('/home');
                     }, function (err) {
-                        notifyService.showError('You were unable to register! Check the length of your password.', err.error);
+                        notifyService.showError('You were unable to register! ' +
+                            'You are trying to register with an already taken email.', err.error);
                     });
             };            
         }]);

@@ -119,7 +119,7 @@ angular.module('issueSystem.issues', [
                     issuesService.updateIssue(issueData,
                         function success() {
                             notifyService.showInfo('You have successfully edited the issue');
-                            $route.reload();
+                            $location.path('/issues/' + issueData.Id);
                         }, function error(err) {
                             notifyService.showError('Editing the issue failed', err);
                         })
