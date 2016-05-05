@@ -27,7 +27,7 @@ angular.module('issueSystem.users.authentication', [])
                 var deferred = $q.defer();
 
                 $http.post(BASE_URL_API + 'Account/Register', user)
-                    .then(function (response) {
+                    .then(function () {
                         var loginData = 'Username=' + user.email +
                                 '&Password=' + user.password +
                                 '&grant_type=password',
@@ -74,9 +74,7 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function isAuthenticated() {
-                var isAuthenticated = !!$cookies.get(AUTHENTICATION_COOKIE_KEY);
-
-                return isAuthenticated;
+                return !!$cookies.get(AUTHENTICATION_COOKIE_KEY);
             }
 
             function logout() {
@@ -110,13 +108,11 @@ angular.module('issueSystem.users.authentication', [])
             }
 
             function isAdmin() {
-                var isAdmin = atob($cookies.get(IS_ADMIN_KEY)) === 'true';
-
-                return isAdmin;
+                return atob($cookies.get(IS_ADMIN_KEY)) === 'true';
             }
 
             function getLoginRequest(loginData) {
-                var request = {
+                return {
                     method: 'POST',
                     url: BASE_URL_API + 'Token',
                     data: loginData,
@@ -124,8 +120,6 @@ angular.module('issueSystem.users.authentication', [])
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 };
-
-                return request;
             }
 
             return {
