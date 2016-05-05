@@ -94,7 +94,7 @@ angular.module('issueSystem.issues.issuesService', [])
                     labels.push(label);
                 }
 
-                var data = {
+                return {
                     Title: issueData.Title,
                     Description: issueData.Description,
                     DueDate: issueData.DueDate,
@@ -103,8 +103,6 @@ angular.module('issueSystem.issues.issuesService', [])
                     PriorityId: issueData.PriorityId,
                     Labels: labels
                 };
-
-                return data;
             }
 
             return {

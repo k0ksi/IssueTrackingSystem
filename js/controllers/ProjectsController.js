@@ -137,7 +137,7 @@ angular.module('issueSystem.projects', [
                     'pageSize' : 7,
                     'filter': ''
                 };
-
+                
                 $scope.reloadProjects = getAllProjects;
                 $scope.reloadProjects();
             }

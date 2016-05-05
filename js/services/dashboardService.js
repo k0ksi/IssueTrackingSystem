@@ -19,22 +19,22 @@ angular.module('issueSystem.dashboard.myDashboard', [])
                 }
             );
 
-            var latestIssues = $resource(
-                BASE_URL + 'issues/me?orderBy=Project.Name desc, IssueKey&pageSize=100&pageNumber=1',
+            /*var latestIssues = $resource(
+                BASE_URL + 'issues/me?orderBy=Project.Name desc, IssueKey&pageSize=100000&pageNumber=1',
                 null,
                 {
                     'getLatestIssues': {
                         method: 'GET'
                     }
                 }
-            );
+            );*/
 
             function getProjectsWithCurrentUserAsLead(leadId) {
                 var headers = authentication.getAuthHeaders(),
                     deferred = $q.defer(),
                     request = {
                         method: 'GET',
-                        url: BASE_URL + 'projects?filter=Lead.Id="' + leadId + '"&pageSize=50&pageNumber=1',
+                        url: BASE_URL + 'projects?filter=Lead.Id="' + leadId + '"&pageSize=1000&pageNumber=1',
                         headers: {
                             'Authorization': headers
                         }
@@ -54,9 +54,9 @@ angular.module('issueSystem.dashboard.myDashboard', [])
                 getLatestIssues: function (params, success, error) {
                     return issuesResource.getLatestIssues(params, success, error);
                 },
-                getProjectsWithCurrentUserAsLead: getProjectsWithCurrentUserAsLead,
-                getAllIssues: function (success, error) {
+                getProjectsWithCurrentUserAsLead: getProjectsWithCurrentUserAsLead
+                /*getAllIssues: function (success, error) {
                     return latestIssues.getLatestIssues(success, error);
-                }
+                }*/
             }
         }]);

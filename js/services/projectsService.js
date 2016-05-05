@@ -27,40 +27,7 @@ angular.module('issueSystem.projects.projectsService', [])
             }
 
             function getIssuesForProject(projectId, filterData) {
-                var userId = authentication.getUserId(),
-                    filter;
-
-                switch (filterData) {
-                    case 'My Issues':
-                        filter = ' and Assignee.Id=="' + userId + '"';
-                        break;
-                    case 'All Issues':
-                        filter = '';
-                        break;
-                    case 'Open Issues':
-                        filter = ' and Status.Name=="Open"';
-                        break;
-                    case 'In Progress Issues':
-                        filter = ' and Status.Name=="InProgress"';
-                        break;
-                    case 'Stopped Progress Issues':
-                        filter = ' and Status.Name=="StoppedProgress"';
-                        break;
-                    case 'Closed Issues':
-                        filter = ' and Status.Name=="Closed"';
-                        break;
-                    case 'Due Until Today':
-                        var day = new Date().getUTCDay() + 1;
-                        var month = new Date().getUTCMonth() + 1;
-                        var year = new Date().getUTCFullYear();
-                        filter = ' and DueDate.Day==' + day +
-                                 ' and DueDate.Month=' + month +
-                                 ' and DueDate.Year=' + year;
-                        break;
-                    default:
-                        filter = ' and Assignee.Id=="' + userId + '"';
-                        break;
-                }
+                var filter = filterProjects(filterData);
 
                 var url = BASE_URL +
                         'issues/' +
@@ -196,6 +163,45 @@ angular.module('issueSystem.projects.projectsService', [])
                 }
 
                 return labels;
+            }
+
+            function filterProjects(filterData) {
+                var userId = authentication.getUserId(),
+                    data;
+
+                switch (filterData) {
+                    case 'My Issues':
+                        data = ' and Assignee.Id=="' + userId + '"';
+                        break;
+                    case 'All Issues':
+                        data = '';
+                        break;
+                    case 'Open Issues':
+                        data = ' and Status.Name=="Open"';
+                        break;
+                    case 'In Progress Issues':
+                        data = ' and Status.Name=="InProgress"';
+                        break;
+                    case 'Stopped Progress Issues':
+                        data = ' and Status.Name=="StoppedProgress"';
+                        break;
+                    case 'Closed Issues':
+                        data = ' and Status.Name=="Closed"';
+                        break;
+                    case 'Due Until Today':
+                        var day = new Date().getUTCDay() + 1;
+                        var month = new Date().getUTCMonth() + 1;
+                        var year = new Date().getUTCFullYear();
+                        data = ' and DueDate.Day==' + day +
+                            ' and DueDate.Month=' + month +
+                            ' and DueDate.Year=' + year;
+                        break;
+                    default:
+                        data = ' and Assignee.Id=="' + userId + '"';
+                        break;
+                }
+
+                return data;
             }
 
             return {
