@@ -14,7 +14,8 @@ angular.module('issueSystem.issues', [
         'projectsService',
         'notifyService',
         'commentsService',
-        function ($scope, $route, $routeParams, $location, issuesService, authentication, usersService, projectsService, notifyService, commentsService) {
+        'labelsService',
+        function ($scope, $route, $routeParams, $location, issuesService, authentication, usersService, projectsService, notifyService, commentsService, labelsService) {
             var projectId,
                 issueId,
                 userEmail = authentication.getUserEmail(),
@@ -51,6 +52,9 @@ angular.module('issueSystem.issues', [
 
             if(projectId){
                 getProjectDetailsById(projectId);
+                if($location.path() === '/projects/' + projectId + '/add-issue') {
+                    getAllLabels();
+                }
             }
 
             if(issueId) {
@@ -179,6 +183,13 @@ angular.module('issueSystem.issues', [
                         $scope.isCurrentUserProjectLead = projectData.Lead.Id === authentication.getUserId();
                     }, function (err) {
                         notifyService.showError('Cannot load project', err);
+                    });
+            }
+
+            function getAllLabels() {
+                labelsService.getAllLabels()
+                    .then(function (labels) {
+                        $scope.labels = labels.data;
                     });
             }
 

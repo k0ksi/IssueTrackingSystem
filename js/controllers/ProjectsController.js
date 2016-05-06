@@ -143,38 +143,6 @@ angular.module('issueSystem.projects', [
                 $scope.reloadProjects = getAllProjects;
                 $scope.reloadProjects();
             }
-
-            $scope.selectLabels = {
-                formatNoMatches: function(term) {
-                    console.log("Term: " + term);
-                    var message = '<a ng-click="addLabel()">Add label:"' + term + '"</a>';
-                    if(!$scope.$$phase) {
-                        $scope.$apply(function() {
-                            $scope.noResultsTag = term;
-                        });
-                    }
-
-                    return message;
-                }
-            };
-
-            $scope.noResultsTag = null;
-
-            $scope.addLabel = function() {
-                $scope.labels.push({
-                    id: $scope.labels.length,
-                    name: $scope.noResultsTag
-                });
-            };
-
-            $scope.$watch('noResultsTag', function(newVal, oldVal) {
-                if(newVal && newVal !== oldVal) {
-                    $timeout(function() {
-                        var noResultsLink = $('.select2-results__option');
-                        $compile(noResultsLink.contents())($scope);
-                    });
-                }
-            }, true);
         }
     ]
 );

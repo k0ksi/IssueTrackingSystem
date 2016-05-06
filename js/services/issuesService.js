@@ -53,7 +53,7 @@ angular.module('issueSystem.issues.issuesService', [])
             }
 
             function updateIssue(issueData, success, error) {
-                var data = getIssueData(issueData);
+                var data = getIssueDataForUpdate(issueData);
 
                 var request = {
                     method: 'PUT',
@@ -81,12 +81,35 @@ angular.module('issueSystem.issues.issuesService', [])
                 return deferred.promise;
             }
 
-            function getIssueData(issueData) {
+            function getIssueDataForUpdate(issueData) {
                 var labelsArray = issueData.LabelNames.split(",");
                 var labels = [];
                 var labelsArrayLength = labelsArray.length;
                 for (var i = 0; i < labelsArrayLength; i++) {
                     var labelName = labelsArray[i].trim();
+                    var label = {
+                        Name: labelName
+                    };
+
+                    labels.push(label);
+                }
+
+                return {
+                    Title: issueData.Title,
+                    Description: issueData.Description,
+                    DueDate: issueData.DueDate,
+                    ProjectId: issueData.ProjectId,
+                    AssigneeId: issueData.AssigneeId,
+                    PriorityId: issueData.PriorityId,
+                    Labels: labels
+                };
+            }
+
+            function getIssueData(issueData) {
+                var labels = [];
+                var labelsArrayLength = issueData.LabelNames.length;
+                for (var i = 0; i < labelsArrayLength; i++) {
+                    var labelName = issueData.LabelNames[i].trim();
                     var label = {
                         Name: labelName
                     };

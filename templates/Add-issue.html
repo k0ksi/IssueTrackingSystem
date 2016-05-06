@@ -32,8 +32,13 @@
             <label class="bolded-item" for="due-date" required="required">Due Date</label>
             <input class="inline" name="due-date" id="due-date" ng-model="issueData.DueDate" date-picker="" />
             <br/>
-            <label class="inline bolded-item" for="labels">Labels: </label>
-            <input id="labels" class="inline" ng-model="issueData.LabelNames" />
+            <!--<label class="inline bolded-item" for="labels">Labels: </label>
+            <input id="labels" class="inline" ng-model="issueData.LabelNames" />-->
+            <label class="bolded-item" for="labels">Labels </label>
+            <select id="labels" ui-select2="selectLabels" multiple ng-model="issueData.LabelNames"
+                    ng-options="label.Name as label.Name for label in labels">
+            </select>
+            <br/>
             </br/>
             <label class="bolded-item" for="description">Description </label>
             <textarea class="inline" id="description" ng-model="issueData.Description" required="required"></textarea>
