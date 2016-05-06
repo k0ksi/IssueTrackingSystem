@@ -11,11 +11,13 @@ angular.module('issueSystem.projects', [
         'projectsService',
         '$routeParams',
         '$location',
+        '$compile',
+        '$timeout',
         'authentication',
         'notifyService',
         'usersService',
         'labelsService',
-        function ($scope, $route, projectsService, $routeParams, $location, authentication, notifyService, usersService, labelsService) {
+        function ($scope, $route, projectsService, $routeParams, $location, $compile, $timeout, authentication, notifyService, usersService, labelsService) {
             $scope.projectData = {};
             $scope.isAdmin = authentication.isAdmin();
 
@@ -93,7 +95,7 @@ angular.module('issueSystem.projects', [
             function getAllLabels() {
                 labelsService.getAllLabels()
                     .then(function (labels) {
-                        $scope.labels = labels;
+                        $scope.labels = labels.data;
                     });
             }
 
@@ -141,6 +143,38 @@ angular.module('issueSystem.projects', [
                 $scope.reloadProjects = getAllProjects;
                 $scope.reloadProjects();
             }
+
+            $scope.selectLabels = {
+                formatNoMatches: function(term) {
+                    console.log("Term: " + term);
+                    var message = '<a ng-click="addLabel()">Add label:"' + term + '"</a>';
+                    if(!$scope.$$phase) {
+                        $scope.$apply(function() {
+                            $scope.noResultsTag = term;
+                        });
+                    }
+
+                    return message;
+                }
+            };
+
+            $scope.noResultsTag = null;
+
+            $scope.addLabel = function() {
+                $scope.labels.push({
+                    id: $scope.labels.length,
+                    name: $scope.noResultsTag
+                });
+            };
+
+            $scope.$watch('noResultsTag', function(newVal, oldVal) {
+                if(newVal && newVal !== oldVal) {
+                    $timeout(function() {
+                        var noResultsLink = $('.select2-results__option');
+                        $compile(noResultsLink.contents())($scope);
+                    });
+                }
+            }, true);
         }
     ]
 );

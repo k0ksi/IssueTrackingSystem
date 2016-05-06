@@ -17,10 +17,14 @@
             </select>
             <br/>
             <label class="bolded-item" for="priorities">Priorities (separated by comma) </label>
-            <input required="required" class="inline" name="priorities" id="priorities"  ng-model="projectData.LabelNames" />
+            <input required="required" class="inline" name="priorities" id="priorities"  ng-model="projectData.PriorityNames" />
             <br/>
-            <label class="bolded-item" for="labels">Labels (separated by comma) </label>
-            <input class="inline" name="labels" id="labels" ng-model="projectData.PriorityNames" />
+            <!--<label class="bolded-item" for="labels">Labels (separated by comma) </label>
+            <input class="inline" name="labels" id="labels" ng-model="projectData.LabelNames" />-->
+            <label class="bolded-item" for="labels">Labels </label>
+            <select id="labels" ui-select2="selectLabels" multiple ng-model="projectData.LabelNames"
+                ng-options="label.Name as label.Name for label in labels">
+            </select>
             <br/>
             <label class="bolded-item" for="description">Description </label>
             <textarea class="inline" id="description" ng-model="projectData.Description" required="required"></textarea>

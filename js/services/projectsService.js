@@ -85,9 +85,18 @@ angular.module('issueSystem.projects.projectsService', [])
             }
 
             function createProject(projectData, success, error) {
-                var labels = parseLabels(projectData.LabelNames);
-                var priorities = parsePriorities(projectData.PriorityNames);
+                var labels = [];
+                var labelsArrayLength = projectData.LabelNames.length;
+                for (var i = 0; i < labelsArrayLength; i++) {
+                    var labelName = projectData.LabelNames[i].trim();
+                    var label = {
+                        Name: labelName
+                    };
 
+                    labels.push(label);
+                }
+
+                var priorities = parsePriorities(projectData.PriorityNames);
                 var data = {
                     Name: projectData.Name,
                     Description: projectData.Description,
