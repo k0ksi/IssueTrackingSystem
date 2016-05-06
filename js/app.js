@@ -7,6 +7,7 @@ var app = angular.module('issueSystem', [
     'ngAnimate',
     'angular-loading-bar',
     'ui.bootstrap.pagination',
+    'ui.select2',
     'issueSystem.home',
     'issueSystem.users',
     'issueSystem.issues',
