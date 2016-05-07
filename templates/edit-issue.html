@@ -50,7 +50,7 @@
         <p ng-if="issueData.AvailableStatuses.length === 0">None</p>
         <div ng-repeat="status in issueData.AvailableStatuses">
             <p class="inline">-----{{status.Name}}</p>
-            <button ng-if="currentUserId === issueData.Assignee.Id || isAdmin" ng-click="changeIssuesStatus(issueData.Id, status.Id, status.Name, issueData.Status)" class="btn btn-success inline">
+            <button ng-if="isCurrentUserProjectLead || currentUserId === issueData.Assignee.Id || isAdmin" ng-click="changeIssuesStatus(issueData.Id, status.Id, status.Name, issueData.Status)" class="btn btn-success inline">
                 Change
             </button>
         </div>

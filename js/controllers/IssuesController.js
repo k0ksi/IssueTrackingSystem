@@ -151,7 +151,6 @@ angular.module('issueSystem.issues', [
 
                     $scope.comment = { };
                     $scope.comments.push(comment);
-                    console.log($scope.comments.length);
                 }
             }
 
